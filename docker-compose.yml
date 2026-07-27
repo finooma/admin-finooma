@@ -1,0 +1,22 @@
+services:
+  daftar:
+    build: ./daftar_backend
+    image: daftar-darayi:latest
+    ports:
+      - "5000:5000"
+    environment:
+      # Set a real secret in a .env file next to this docker-compose.yml (see .env.example) —
+      # anyone who knows this value can forge login tokens. Not required to run locally, but
+      # do change it before exposing the container to the internet.
+      - DAFTAR_JWT_SECRET=${DAFTAR_JWT_SECRET:-dev-secret-change-me-in-production}
+      - DAFTAR_JWT_EXPIRES_DAYS=${DAFTAR_JWT_EXPIRES_DAYS:-7}
+    volumes:
+      # Named volume so daftar.sqlite3 (mounted at /data, per the Dockerfile's
+      # DAFTAR_DB_PATH) survives `docker compose down` / image rebuilds / container
+      # recreation. Data lives in Docker's own storage, not a host folder — run
+      # `docker volume ls` to see its actual generated name if you need to inspect it.
+      - db_data:/data
+    restart: unless-stopped
+
+volumes:
+  db_data:
