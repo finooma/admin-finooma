@@ -240,6 +240,10 @@
   .delta-chip.flat{background:var(--surface-3); color:var(--ink-dim);}
 
   .alert-card{border-inline-start:3px solid var(--gold); background:linear-gradient(90deg,rgba(201,162,39,.05),transparent 40%), var(--surface);}
+  .alert-card .alert-item{max-height:48px; overflow:hidden; cursor:pointer; transition:max-height .2s ease;}
+  .alert-card.alert-expanded .alert-item{max-height:240px;}
+  .field.invalid input,.field.invalid select{border-color:var(--red) !important; box-shadow:0 0 0 2px var(--red-bg);}
+  .date-picker-inline{width:42px; min-width:42px; padding:7px 4px;}
 </style>
 
 <div class="ledger-root" id="ledgerRoot">
@@ -1423,26 +1427,26 @@ function renderAddTab(){
         ${PORTFOLIOS.length>1 ? `<div class="field"><label>سبد</label><select id="f_portfolio">${PORTFOLIOS.map(p=>`<option value="${p.id}" ${p.id===pid?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div>` : `<input type="hidden" id="f_portfolio" value="${pid}">`}
         <div class="field-row">
           <div class="field"><label>نوع تراکنش</label>
-            <select id="f_type">
+            <select id="f_type" required>
               <option value="buy">خرید</option>
               <option value="sell">فروش</option>
               <option value="dividend">سود نقدی / مجمع</option>
             </select>
           </div>
-          <div class="field"><label>تاریخ (مثل 1405/04/01)</label><input id="f_date" type="text" value="${todayJalali()}" placeholder="1405/04/01"></div>
+          <div class="field"><label>تاریخ (مثل 1405/04/01)</label><div style="display:flex;gap:6px;"><input id="f_date" type="text" value="${todayJalali()}" placeholder="1405/04/01" required><input id="f_date_picker" class="date-picker-inline" type="date" title="انتخاب از تقویم"></div></div>
         </div>
         <div class="field-row">
-          <div class="field"><label>نام دارایی</label><input id="f_asset" type="text" list="assetList" placeholder="مثلاً: فملی"></div>
-          <div class="field"><label>کتگوری</label><input id="f_category" type="text" list="categoryList" placeholder="بورس / طلا / کریپتو ..."></div>
+          <div class="field"><label>نام دارایی</label><input id="f_asset" type="text" list="assetList" placeholder="مثلاً: فملی" required autocomplete="off"></div>
+          <div class="field"><label>کتگوری</label><input id="f_category" type="text" list="categoryList" placeholder="بورس / طلا / کریپتو ..." required autocomplete="off"></div>
         </div>
         <div class="field-row" id="qtyPriceRow">
-          <div class="field"><label>تعداد / مقدار</label><input id="f_qty" type="text" inputmode="decimal" placeholder="0"></div>
-          <div class="field"><label>قیمت واحد</label><input id="f_price" type="text" inputmode="decimal" placeholder="0"></div>
+          <div class="field"><label>تعداد / مقدار</label><input id="f_qty" type="text" inputmode="decimal" placeholder="0" required autocomplete="off"></div>
+          <div class="field"><label>قیمت واحد</label><input id="f_price" type="text" inputmode="decimal" placeholder="0" required autocomplete="off"></div>
         </div>
-        <div class="field"><label id="amountLabel">مبلغ کل (تومان)</label><input id="f_amount" type="text" inputmode="decimal" placeholder="0"></div>
+        <div class="field"><label id="amountLabel">مبلغ کل (تومان)</label><input id="f_amount" type="text" inputmode="decimal" placeholder="0" required autocomplete="off"></div>
         <div class="field-row">
-          <div class="field"><label>محل خرید / پلتفرم</label><input id="f_location" type="text" list="locationList" placeholder="مفید، کیف پول، ..."></div>
-          <div class="field"><label>توضیحات (اختیاری)</label><input id="f_note" type="text"></div>
+          <div class="field"><label>محل خرید / پلتفرم</label><input id="f_location" type="text" list="locationList" placeholder="مفید، کیف پول، ..." required autocomplete="off"></div>
+          <div class="field"><label>توضیحات</label><input id="f_note" type="text" required autocomplete="off"></div>
         </div>
         <button class="btn btn-gold btn-block" type="submit" id="btnSubmitTxn">ثبت تراکنش</button>
       </form>
@@ -1472,6 +1476,7 @@ function bindAddForm(){
   const amountLabel=document.getElementById('amountLabel');
   const qtyEl=document.getElementById('f_qty'), priceEl=document.getElementById('f_price'), amountEl=document.getElementById('f_amount');
   const assetEl=document.getElementById('f_asset'), catEl=document.getElementById('f_category'), locEl=document.getElementById('f_location');
+  const dateEl=document.getElementById('f_date'), datePicker=document.getElementById('f_date_picker');
   const portfolioSelEl=document.getElementById('f_portfolio');
   if(portfolioSelEl && portfolioSelEl.tagName==='SELECT'){
     portfolioSelEl.addEventListener('change', ()=>{
@@ -1488,9 +1493,28 @@ function bindAddForm(){
   typeEl.addEventListener('change', syncTypeUI);
   syncTypeUI();
 
-  function recalcAmount(){ amountEl.value = num(qtyEl.value)*num(priceEl.value) ? fmt(num(qtyEl.value)*num(priceEl.value)) : ''; }
-  qtyEl.addEventListener('input', recalcAmount);
+  if(datePicker) datePicker.addEventListener('change', ()=>{
+    if(!datePicker.value) return;
+    const [y,m,d]=datePicker.value.split('-').map(Number);
+    dateEl.value=gregorianToJalali(y,m,d).map((v,i)=>String(v).padStart(i?2:4,'0')).join('/');
+    dateEl.dispatchEvent(new Event('input'));
+  });
+
+  function recalcAmount(){
+    const qty=num(qtyEl.value), price=num(priceEl.value);
+    if(qty>0 && price>0) amountEl.value=fmt(qty*price);
+  }
+  function recalcPrice(){
+    const qty=num(qtyEl.value), amount=num(amountEl.value);
+    if(qty>0 && amount>0) priceEl.value=fmt(amount/qty);
+  }
+  qtyEl.addEventListener('input', ()=>{
+    // If the user entered the total first, keep it and derive the unit price.
+    if(num(amountEl.value)>0 && num(priceEl.value)<=0) recalcPrice();
+    else recalcAmount();
+  });
   priceEl.addEventListener('input', recalcAmount);
+  amountEl.addEventListener('input', recalcPrice);
 
   assetEl.addEventListener('change', ()=>{
     const info=lastInfoForAsset(assetEl.value.trim());
@@ -1501,9 +1525,14 @@ function bindAddForm(){
 
   document.getElementById('txnForm').addEventListener('submit', async e=>{
     e.preventDefault();
+    const requiredFields=[...document.querySelectorAll('#txnForm input[required],#txnForm select[required]')]
+      .filter(el=>!el.closest('.hidden') && !el.value.trim());
+    document.querySelectorAll('#txnForm .field').forEach(f=>f.classList.remove('invalid'));
+    requiredFields.forEach(el=>el.closest('.field')?.classList.add('invalid'));
+    if(requiredFields.length){ toast('لطفاً همه فیلدهای اجباری را کامل کنید.',true); requiredFields[0].focus(); return; }
     if(!requireAdmin('ثبت یا ویرایش تراکنش')) return;
     const type=typeEl.value;
-    const date=normalizeJalali(document.getElementById('f_date').value);
+    const date=normalizeJalali(dateEl.value);
     const asset=assetEl.value.trim();
     const category=catEl.value.trim()||'سایر';
     const qty= type==='dividend'?0:num(qtyEl.value);
@@ -1710,7 +1739,7 @@ function renderHoldings(){
         <h3>پرتفوی</h3>
         <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
           ${portfolioFilterSelect('holdingsPortfolioFilter', holdingsFilterPid)}
-          <input type="text" id="holdingsAsOfDateInput" value="${holdingsAsOfDate?esc(holdingsAsOfDate):''}" placeholder="نما تا تاریخ (1404/06/01)" style="max-width:170px;" title="پرتفوی را همان‌طور که تا این تاریخ بوده نشان بده">
+          <div style="display:flex;gap:6px;"><input type="text" id="holdingsAsOfDateInput" value="${holdingsAsOfDate?esc(holdingsAsOfDate):''}" placeholder="نما تا تاریخ (1404/06/01)" style="max-width:170px;" title="پرتفوی را همان‌طور که تا این تاریخ بوده نشان بده"><input type="date" id="holdingsAsOfDatePicker" class="date-picker-inline" title="انتخاب از تقویم"></div>
           ${holdingsAsOfDate?`<button type="button" class="btn btn-xs" id="btnClearHoldingsAsOf">بازگشت به امروز</button>`:''}
           <button class="btn btn-gold btn-xs ${isAdmin()?'':'hidden'}" id="btnSaveSnapshot">ذخیره قیمت‌های روز و ثبت گزارش</button>
         </div>
@@ -1727,6 +1756,13 @@ function renderHoldings(){
   const holdingsFilterSel=document.getElementById('holdingsPortfolioFilter');
   if(holdingsFilterSel) holdingsFilterSel.addEventListener('change', ()=>{ holdingsFilterPid=holdingsFilterSel.value; renderHoldings(); });
   const holdingsAsOfInput=document.getElementById('holdingsAsOfDateInput');
+  const holdingsAsOfPicker=document.getElementById('holdingsAsOfDatePicker');
+  if(holdingsAsOfPicker) holdingsAsOfPicker.addEventListener('change', ()=>{
+    if(!holdingsAsOfPicker.value) return;
+    const [y,m,d]=holdingsAsOfPicker.value.split('-').map(Number);
+    holdingsAsOfInput.value=gregorianToJalali(y,m,d).map((v,i)=>String(v).padStart(i?2:4,'0')).join('/');
+    holdingsAsOfInput.dispatchEvent(new Event('change'));
+  });
   if(holdingsAsOfInput) holdingsAsOfInput.addEventListener('change', ()=>{
     const v=holdingsAsOfInput.value.trim();
     if(!v){ holdingsAsOfDate=null; renderHoldings(); return; }
@@ -2865,6 +2901,8 @@ document.getElementById('tabs').addEventListener('click', e=>{
   switchTab(b.dataset.tab);
 });
 document.addEventListener('click', e=>{
+  const alertCard=e.target.closest('.alert-card');
+  if(alertCard && !e.target.closest('button')){ alertCard.classList.toggle('alert-expanded'); return; }
   const goto=e.target.closest('[data-goto]');
   if(goto){
     switchTab(goto.dataset.goto); document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===goto.dataset.goto)); return;
