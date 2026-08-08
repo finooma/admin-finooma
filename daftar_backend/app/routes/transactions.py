@@ -13,8 +13,10 @@ bp = Blueprint("transactions", __name__)
 def _txn_public(row) -> dict:
     return {
         "id": row["id"], "portfolioId": row["portfolio_id"], "ts": row["ts"],
-        "type": row["type"], "date": row["date"], "asset": row["asset"], "category": row["category"],
-        "qty": row["qty"], "price": row["price"], "amount": row["amount"],
+        "type": row["type"], "date": row["date"], "asset": row["asset"],
+        "categoryId": row["category_id"], "accountId": row["account_id"],
+        "qty": row["qty"], "price": row["price"], "amount": row["amount"], "fee": row["fee"],
+        "total": row["amount"] + row["fee"] if row["type"] == "buy" else row["amount"] - row["fee"],
         "location": row["location"], "note": row["note"],
     }
 
@@ -54,8 +56,17 @@ def _validate_and_upsert(pid: str, body: dict, exclude_id: str | None = None) ->
     asset = (body.get("asset") or "").strip()
     if not asset:
         raise ValidationError("نام دارایی لازم است.")
-    category = (body.get("category") or "سایر").strip() or "سایر"
+
+    category_id = body.get("categoryId")
+    if not category_id or not query_one("SELECT 1 FROM categories WHERE id = ?", (category_id,)):
+        raise ValidationError("کتگوری معتبر انتخاب نشده.")
+
+    account_id = body.get("accountId") or None
+    if account_id and not query_one("SELECT 1 FROM accounts WHERE id = ?", (account_id,)):
+        raise ValidationError("حساب انتخاب‌شده معتبر نیست.")
+
     amount = float(body.get("amount") or 0)
+    fee = max(0.0, float(body.get("fee") or 0))
     qty = float(body.get("qty") or 0) if ttype != "dividend" else 0.0
     price = float(body.get("price") or 0) if ttype != "dividend" else 0.0
     location = (body.get("location") or "").strip()
@@ -65,6 +76,8 @@ def _validate_and_upsert(pid: str, body: dict, exclude_id: str | None = None) ->
         raise ValidationError("تعداد باید بزرگ‌تر از صفر باشد.")
     if amount <= 0:
         raise ValidationError("مبلغ باید بزرگ‌تر از صفر باشد.")
+    if ttype == "sell" and fee >= amount:
+        raise ValidationError("کارمزد نمی‌تواند برابر یا بیشتر از مبلغ فروش باشد.")
 
     if ttype == "sell":
         existing_txns = _txns_for_portfolio_as_dicts(pid, exclude_id=exclude_id)
@@ -75,8 +88,8 @@ def _validate_and_upsert(pid: str, body: dict, exclude_id: str | None = None) ->
             )
 
     return {
-        "type": ttype, "date": date, "asset": asset, "category": category,
-        "qty": qty, "price": price, "amount": amount, "location": location, "note": note,
+        "type": ttype, "date": date, "asset": asset, "category_id": category_id, "account_id": account_id,
+        "qty": qty, "price": price, "amount": amount, "fee": fee, "location": location, "note": note,
     }
 
 
@@ -88,10 +101,10 @@ def create_transaction(pid):
     clean = _validate_and_upsert(pid, body)
     tid = new_id()
     execute(
-        "INSERT INTO transactions (id, portfolio_id, ts, type, date, asset, category, qty, price, amount, location, note) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        (tid, pid, now_ts(), clean["type"], clean["date"], clean["asset"], clean["category"],
-         clean["qty"], clean["price"], clean["amount"], clean["location"], clean["note"]),
+        "INSERT INTO transactions (id, portfolio_id, ts, type, date, asset, category_id, account_id, qty, price, amount, fee, location, note) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (tid, pid, now_ts(), clean["type"], clean["date"], clean["asset"], clean["category_id"], clean["account_id"],
+         clean["qty"], clean["price"], clean["amount"], clean["fee"], clean["location"], clean["note"]),
     )
     return jsonify(_txn_public(query_one("SELECT * FROM transactions WHERE id = ?", (tid,)))), 201
 
@@ -110,10 +123,10 @@ def update_transaction(tid):
     body = request.get_json(silent=True) or {}
     clean = _validate_and_upsert(txn["portfolio_id"], body, exclude_id=tid)
     execute(
-        "UPDATE transactions SET type=?, date=?, asset=?, category=?, qty=?, price=?, amount=?, location=?, note=? "
+        "UPDATE transactions SET type=?, date=?, asset=?, category_id=?, account_id=?, qty=?, price=?, amount=?, fee=?, location=?, note=? "
         "WHERE id = ?",
-        (clean["type"], clean["date"], clean["asset"], clean["category"], clean["qty"],
-         clean["price"], clean["amount"], clean["location"], clean["note"], tid),
+        (clean["type"], clean["date"], clean["asset"], clean["category_id"], clean["account_id"], clean["qty"],
+         clean["price"], clean["amount"], clean["fee"], clean["location"], clean["note"], tid),
     )
     return jsonify(_txn_public(query_one("SELECT * FROM transactions WHERE id = ?", (tid,))))
 

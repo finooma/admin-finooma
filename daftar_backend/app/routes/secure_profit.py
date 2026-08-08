@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 
-from ..business import category_agg, compute_holdings_for_portfolio, current_qty_for_asset, ladder_levels_with_defaults
-from ..db import get_db, query_all
-from ..errors import ValidationError
+from ..business import compute_holdings_for_portfolio, current_qty_for_asset, ladder_levels_with_defaults
+from ..db import get_db, query_all, query_one
+from ..errors import ValidationError, NotFoundError
 from ..routes.portfolios import get_portfolio_or_404
 from ..security import require_admin
 from ..utils import new_id, normalize_jalali, now_ts
@@ -18,10 +18,15 @@ def _prices_dict() -> dict[str, float]:
     return {r["asset"]: r["price"] for r in query_all("SELECT asset, price FROM prices")}
 
 
-def _stored_levels(pid: str, cat: str) -> list[dict] | None:
+def _category_name(cid: str) -> str:
+    row = query_one("SELECT name FROM categories WHERE id = ?", (cid,))
+    return row["name"] if row else "سایر"
+
+
+def _stored_levels(pid: str, category_id: str) -> list[dict] | None:
     rows = query_all(
-        "SELECT idx, threshold_pct, withdraw_pct FROM ladders WHERE portfolio_id = ? AND category = ? ORDER BY idx",
-        (pid, cat),
+        "SELECT idx, threshold_pct, withdraw_pct FROM ladders WHERE portfolio_id = ? AND category_id = ? ORDER BY idx",
+        (pid, category_id),
     )
     if not rows:
         return None
@@ -36,22 +41,22 @@ def secure_profit(pid):
     openSecureProfitModal's submit handler in the frontend. If validation fails partway
     through, nothing is written (single DB transaction, rolled back on error).
 
-    Body: {"category": str, "levelIdx": int, "asset": str, "date": "YYYY/MM/DD",
-           "price": float, "qty": float, "amount": float, "location": str,
-           "note": str (optional), "dest": str (optional)}
+    Body: {"categoryId": str, "levelIdx": int, "asset": str, "date": "YYYY/MM/DD",
+           "price": float, "qty": float, "amount": float, "fee": float (optional),
+           "accountId": str (optional), "location": str, "note": str (optional), "dest": str (optional)}
     """
     get_portfolio_or_404(pid)
     body = request.get_json(silent=True) or {}
 
-    category = (body.get("category") or "").strip()
-    if not category:
-        raise ValidationError("کتگوری لازم است.")
+    category_id = body.get("categoryId")
+    if not category_id or not query_one("SELECT 1 FROM categories WHERE id = ?", (category_id,)):
+        raise ValidationError("کتگوری معتبر انتخاب نشده.")
     level_idx = body.get("levelIdx")
     if level_idx is None:
         raise ValidationError("شماره پله (levelIdx) لازم است.")
     level_idx = int(level_idx)
 
-    levels = ladder_levels_with_defaults(category, _stored_levels(pid, category))
+    levels = ladder_levels_with_defaults(_category_name(category_id), _stored_levels(pid, category_id))
     if level_idx < 0 or level_idx >= len(levels):
         raise ValidationError("پله‌ی نامعتبر است.")
     lv = levels[level_idx]
@@ -65,14 +70,21 @@ def secure_profit(pid):
     price = float(body.get("price") or 0)
     qty = float(body.get("qty") or 0)
     amount = float(body.get("amount") or 0)
+    fee = max(0.0, float(body.get("fee") or 0))
     location = (body.get("location") or "").strip()
     dest = (body.get("dest") or "").strip()
-    note = (body.get("note") or f"سیو سود — پله {level_idx + 1} (آستانه {lv['t']}٪) کتگوری {category}").strip()
+    note = (body.get("note") or f"سیو سود — پله {level_idx + 1} (آستانه {lv['t']}٪)").strip()
+
+    account_id = body.get("accountId") or None
+    if account_id and not query_one("SELECT 1 FROM accounts WHERE id = ?", (account_id,)):
+        raise ValidationError("حساب انتخاب‌شده معتبر نیست.")
 
     if qty <= 0:
         raise ValidationError("تعداد فروش باید بزرگ‌تر از صفر باشد.")
     if amount <= 0:
         raise ValidationError("مبلغ فروش باید بزرگ‌تر از صفر باشد.")
+    if fee >= amount:
+        raise ValidationError("کارمزد نمی‌تواند برابر یا بیشتر از مبلغ فروش باشد.")
 
     existing_txns = _txns_for_portfolio(pid)
     available = current_qty_for_asset(asset, existing_txns, _prices_dict())
@@ -82,10 +94,11 @@ def secure_profit(pid):
     # Confirm this category actually has open holdings to sell from (mirrors openSecureProfitModal's
     # guard, which refuses to open at all if catHoldings is empty).
     result = compute_holdings_for_portfolio(existing_txns, _prices_dict())
-    cat_holdings = [h for h in result["holdings"] if h["category"] == category and h["qty"] > 1e-9]
+    cat_holdings = [h for h in result["holdings"] if h["categoryId"] == category_id and h["qty"] > 1e-9]
     if not cat_holdings:
         raise ValidationError("دارایی بازی در این کتگوری برای فروش وجود ندارد.")
 
+    net_proceeds = amount - fee  # what actually lands in the withdrawal / cash account
     sell_txn_id = new_id()
     withdrawal_id = new_id()
     ts = now_ts()
@@ -94,14 +107,14 @@ def secure_profit(pid):
     try:
         db.execute("BEGIN")
         db.execute(
-            "INSERT INTO transactions (id, portfolio_id, ts, type, date, asset, category, qty, price, amount, location, note) "
-            "VALUES (?, ?, ?, 'sell', ?, ?, ?, ?, ?, ?, ?, ?)",
-            (sell_txn_id, pid, ts, date, asset, category, qty, price, amount, location, note),
+            "INSERT INTO transactions (id, portfolio_id, ts, type, date, asset, category_id, account_id, qty, price, amount, fee, location, note) "
+            "VALUES (?, ?, ?, 'sell', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (sell_txn_id, pid, ts, date, asset, category_id, account_id, qty, price, amount, fee, location, note),
         )
         db.execute(
-            "INSERT INTO withdrawals (id, portfolio_id, ts, category, date, amount, dest, note, level, source_txn_id) "
+            "INSERT INTO withdrawals (id, portfolio_id, ts, category_id, date, amount, dest, note, level, source_txn_id) "
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (withdrawal_id, pid, ts, category, date, amount, dest, f"از فروش {asset}", level_idx, sell_txn_id),
+            (withdrawal_id, pid, ts, category_id, date, net_proceeds, dest, f"از فروش {asset}", level_idx, sell_txn_id),
         )
         db.commit()
     except Exception:
@@ -112,5 +125,6 @@ def secure_profit(pid):
         "ok": True,
         "sellTransactionId": sell_txn_id,
         "withdrawalId": withdrawal_id,
+        "netProceeds": net_proceeds,
         "message": "فروش ثبت شد و سود این پله سیو شد.",
     }), 201

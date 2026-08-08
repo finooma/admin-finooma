@@ -42,52 +42,89 @@ def test_full_flow():
         assert r.status_code == 201, r.get_json()
         pid = r.get_json()["id"]
 
-        # 4. buy transaction
+        # 4. categories are pre-seeded (7 base categories); grab کریپتو's id
+        r = client.get("/api/categories", headers=h)
+        cats = r.get_json()
+        assert len(cats) == 7
+        crypto_id = next(c["id"] for c in cats if c["name"] == "کریپتو")
+
+        # 4b. category management: create, rename, and block-deleting an in-use one
+        r = client.post("/api/categories", json={"name": "کتگوری تست"}, headers=h)
+        assert r.status_code == 201
+        test_cat_id = r.get_json()["id"]
+        r = client.put(f"/api/categories/{test_cat_id}", json={"name": "کتگوری تست ۲"}, headers=h)
+        assert r.status_code == 200 and r.get_json()["name"] == "کتگوری تست ۲"
+        r = client.delete(f"/api/categories/{test_cat_id}", headers=h)
+        assert r.status_code == 200  # unused -> deletable
+
+        # 5. create a cash account for this portfolio, deposit into it
+        r = client.post(f"/api/accounts", json={"name": "نقد تومانی", "openingBalance": 0}, headers=h)
+        assert r.status_code == 201, r.get_json()
+        acc_id = r.get_json()["id"]
+        assert r.get_json()["balance"] == 0
+
+        r = client.post(f"/api/accounts/{acc_id}/deposit", json={"date": "1404/01/01", "amount": 10000, "note": "واریز اولیه"}, headers=h)
+        assert r.status_code == 201
+        assert r.get_json()["balance"] == 10000
+
+        # 6. buy transaction WITH a fee, paid from that account — cash should drop by amount+fee
         r = client.post(f"/api/portfolios/{pid}/transactions", json={
-            "type": "buy", "date": "1404/01/01", "asset": "BTC", "category": "کریپتو",
-            "qty": 1, "price": 1000, "amount": 1000,
+            "type": "buy", "date": "1404/01/02", "asset": "BTC", "categoryId": crypto_id, "accountId": acc_id,
+            "qty": 1, "price": 1000, "amount": 1000, "fee": 20,
         }, headers=h)
         assert r.status_code == 201, r.get_json()
+        assert r.get_json()["fee"] == 20
+        assert r.get_json()["total"] == 1020  # amount + fee on a buy
 
-        # 5. set day price
+        r = client.get(f"/api/accounts/{acc_id}/movements", headers=h)  # sanity: account still resolvable
+        assert r.status_code == 200
+        r = client.get(f"/api/accounts", headers=h)
+        acc_after_buy = next(a for a in r.get_json() if a["id"] == acc_id)
+        assert acc_after_buy["balance"] == 10000 - 1020
+
+        # 7. holdings should reflect fee-inclusive cost basis
         r = client.put("/api/prices/BTC", json={"price": 2000}, headers=h)
         assert r.status_code == 200
-
-        # 6. holdings should reflect unrealized gain
         r = client.get(f"/api/portfolios/{pid}/holdings", headers=h)
-        assert r.status_code == 200
         holdings = r.get_json()
         assert len(holdings) == 1
-        assert holdings[0]["unrealized"] == 1000
+        assert holdings[0]["costBasis"] == 1020
+        assert holdings[0]["categoryId"] == crypto_id
 
-        # 7. selling more than owned should be rejected
+        # 8. selling more than owned should be rejected
         r = client.post(f"/api/portfolios/{pid}/transactions", json={
-            "type": "sell", "date": "1404/02/01", "asset": "BTC", "category": "کریپتو",
+            "type": "sell", "date": "1404/02/01", "asset": "BTC", "categoryId": crypto_id,
             "qty": 5, "price": 2000, "amount": 10000,
         }, headers=h)
         assert r.status_code == 400
 
-        # 8. ladders default correctly for a known category
-        r = client.get(f"/api/portfolios/{pid}/ladders/کریپتو", headers=h)
+        # 9. ladders default correctly for a known category (by id now)
+        r = client.get(f"/api/portfolios/{pid}/ladders/{crypto_id}", headers=h)
         assert r.status_code == 200
         levels = r.get_json()
         assert levels[0]["t"] == 70
 
-        # 9. secure-profit: since profitPct (100%) exceeds rung 0's threshold (70%), this should work
+        # 10. secure-profit: sell with a fee, into the same account — net proceeds credited
         r = client.post(f"/api/portfolios/{pid}/secure-profit", json={
-            "category": "کریپتو", "levelIdx": 0, "asset": "BTC", "date": "1404/03/01",
-            "price": 2000, "qty": 0.25, "amount": 500,
+            "categoryId": crypto_id, "levelIdx": 0, "asset": "BTC", "date": "1404/03/01",
+            "price": 2000, "qty": 0.25, "amount": 500, "fee": 10, "accountId": acc_id,
         }, headers=h)
         assert r.status_code == 201, r.get_json()
+        assert r.get_json()["netProceeds"] == 490
 
-        # 10. withdrawal should now show up, linked to the sell
+        r = client.get(f"/api/accounts", headers=h)
+        acc_after_sell = next(a for a in r.get_json() if a["id"] == acc_id)
+        assert acc_after_sell["balance"] == (10000 - 1020) + 490
+
+        # 11. withdrawal should now show up, linked to the sell, amount = net proceeds
         r = client.get(f"/api/portfolios/{pid}/withdrawals", headers=h)
         wds = r.get_json()
         assert len(wds) == 1
         assert wds[0]["level"] == 0
+        assert wds[0]["amount"] == 490
         assert wds[0]["sourceTxnId"]
 
-        # 11. deleting the linked sell transaction should also delete the withdrawal
+        # 12. deleting the linked sell transaction should also delete the withdrawal
         sell_txn_id = wds[0]["sourceTxnId"]
         r = client.delete(f"/api/transactions/{sell_txn_id}", headers=h)
         assert r.status_code == 200
@@ -95,7 +132,20 @@ def test_full_flow():
         r = client.get(f"/api/portfolios/{pid}/withdrawals", headers=h)
         assert r.get_json() == []
 
-        # 12. non-admin can't create a transaction
+        # 13. a second account + transfer between accounts
+        r = client.post(f"/api/accounts", json={"name": "نقد دلاری", "openingBalance": 0}, headers=h)
+        acc2_id = r.get_json()["id"]
+        r = client.post(f"/api/accounts/transfer", json={
+            "fromAccountId": acc_id, "toAccountId": acc2_id, "date": "1404/03/02", "amount": 1000, "note": "انتقال",
+        }, headers=h)
+        assert r.status_code == 201, r.get_json()
+        assert r.get_json()["to"]["balance"] == 1000
+
+        # 14. can't delete a category that's in use
+        r = client.delete(f"/api/categories/{crypto_id}", headers=h)
+        assert r.status_code == 400
+
+        # 15. non-admin can't create a transaction
         r = client.post("/api/users", json={
             "username": "viewer", "password": "abcd1234", "role": "user", "allowedTabs": ["holdings"],
         }, headers=h)
@@ -103,16 +153,16 @@ def test_full_flow():
         r = client.post("/api/auth/login", json={"username": "viewer", "password": "abcd1234"})
         viewer_h = auth_headers(r.get_json()["token"])
         r = client.post(f"/api/portfolios/{pid}/transactions", json={
-            "type": "buy", "date": "1404/01/01", "asset": "ETH", "category": "کریپتو", "qty": 1, "price": 1, "amount": 1,
+            "type": "buy", "date": "1404/01/01", "asset": "ETH", "categoryId": crypto_id, "qty": 1, "price": 1, "amount": 1,
         }, headers=viewer_h)
         assert r.status_code == 403
 
-        # 13. viewer can still read holdings (allowed tab)
+        # 16. viewer can still read holdings (allowed tab)
         r = client.get(f"/api/portfolios/{pid}/holdings", headers=viewer_h)
         assert r.status_code == 200
 
-        # 14. viewer cannot read ladders (not in allowedTabs)
-        r = client.get(f"/api/portfolios/{pid}/ladders/کریپتو", headers=viewer_h)
+        # 17. viewer cannot read ladders (not in allowedTabs)
+        r = client.get(f"/api/portfolios/{pid}/ladders/{crypto_id}", headers=viewer_h)
         assert r.status_code == 403
 
         print("ALL API FLOW ASSERTIONS PASSED")

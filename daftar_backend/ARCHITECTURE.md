@@ -5,6 +5,42 @@
 از `window.storage` جدا کرد و به این API وصل کرد — بدون تغییر در قوانین محاسباتی
 (میانگین خرید وزنی، سود تحقق‌یافته، پله‌های سود، سیو سود، و غیره).
 
+## نسخه‌ی دوم (v2) — الهام از Microsoft Money
+
+سه تغییر ساختاری اصلی نسبت به نسخه‌ی اول، هر سه در سطح دیتابیس و منطق تجاری،
+نه فقط UI:
+
+1. **کتگوری‌ها یک موجودیت مدیریت‌شده شدند.** قبلاً هر تراکنش یک رشته‌ی متنی آزاد
+   برای کتگوری داشت. حالا جدول `categories` وجود دارد؛ هر تراکنش/برداشت/پله‌ی سود
+   به `category_id` اشاره می‌کند، نه به نام. یعنی از یک‌جا می‌شود کتگوری ساخت،
+   **rename** کرد (و همه‌جا آنی اعمال می‌شود، چون فقط id ذخیره شده نه نام)، یا
+   حذف کرد (فقط اگر هیچ تراکنشی از آن استفاده نکند). ۷ کتگوری پایه در اولین اجرا
+   خودکار seed می‌شوند (`db.py: _seed_default_categories`).
+
+2. **حساب‌های نقدی (cash accounts)، دقیقاً به سبک Microsoft Money.** هر سبد
+   می‌تواند چند حساب نقدی داشته باشد (مثلاً «نقد تومانی»، «حساب بانک x»). خرید یک
+   دارایی، حساب انتخابی را بدهکار می‌کند (به‌اندازه‌ی مبلغ + کارمزد)؛ فروش یا سود
+   نقدی، همان حساب را بستانکار می‌کند. واریز/برداشت/انتقال بین حساب‌ها هم مستقیماً
+   از همان تب قابل ثبت است. موجودی هیچ‌وقت ذخیره نمی‌شود — همیشه از پخش کامل
+   دفترکل (opening_balance + هر واریز/برداشت/انتقال + هر تراکنشی که account_id آن
+   را هدف گرفته) محاسبه می‌شود؛ همان فلسفه‌ی «replay the ledger» که هولدینگ‌ها از
+   قبل داشتند (`business.py: compute_account_balance`). انتخاب حساب برای هر
+   تراکنش اختیاری است (`account_id` می‌تواند NULL باشد) — برای کسی که نمی‌خواهد
+   نقدینگی را دقیق دنبال کند.
+
+3. **فیلد کارمزد (fee) روی هر تراکنش.** در خرید، کارمزد به مبلغ کل اضافه و بخشی
+   از cost basis می‌شود (خرید ۱۰۰ با کارمزد ۲ یعنی هزینه‌ی واقعی ۱۰۲). در فروش،
+   کارمزد از مبلغ کم می‌شود و سود واقعی/نقد واریزی را کاهش می‌دهد (فروش ۱۰۰ با
+   کارمزد ۲ یعنی خالص دریافتی ۹۸). این منطق در `business.py` (`txn_cash_impact` و
+   داخل `compute_holdings`) پیاده شده، نه فقط در UI — یعنی هر مصرف‌کننده‌ی API
+   (نه فقط این فرانت‌اند) به همین قانون پایبند می‌ماند.
+
+**نکته‌ی مهم درباره‌ی فرانت‌اند:** این سه تغییر فعلاً فقط در بک‌اند (schema.sql +
+business.py + routes/) پیاده و تست شده‌اند. فایل `frontend/daftar-darayi.html`
+هنوز به API قدیمی (category متنی، بدون fee، بدون accounts) وصل است و باید در یک
+مرحله‌ی بعدی به‌روزرسانی شود — فیلد کارمزد و انتخاب کتگوری/حساب باید در فرم ثبت
+تراکنش اضافه شوند، و یک تب جدید «کتگوری‌ها» و «حساب‌ها» ساخته شود.
+
 ## پشته فنی
 - **Flask** (سبک، بدون نیاز به وابستگی‌های خارجی که در این محیط در دسترس نیستند)
 - **SQLite** از طریق ماژول استاندارد `sqlite3` (فایل‌محور، بدون نیاز به سرویس جدا)
@@ -18,6 +54,7 @@
 daftar_backend/
   app/
     __init__.py        # create_app() — factory الگوی Flask
+
     config.py          # تنظیمات (مسیر دیتابیس، کلید JWT، عمر توکن)
     db.py               # اتصال sqlite، init_db()، helperهای query
     schema.sql          # DDL همه‌ی جدول‌ها
@@ -36,6 +73,8 @@ daftar_backend/
       secure_profit.py       # /api/portfolios/<pid>/secure-profit  (فروش + برداشت اتمیک)
       snapshots.py            # /api/portfolios/<pid>/snapshots*
       users.py                 # /api/users*  (فقط ادمین)
+      categories.py             # /api/categories*  (v2: کتگوری‌های مدیریت‌شده)
+      accounts.py                # /api/portfolios/<pid>/accounts*, /api/accounts/<id>/*  (v2: حساب‌های نقدی)
   run.py                       # نقطه‌ی اجرا: python run.py
   requirements.txt
   tests/
@@ -49,11 +88,14 @@ daftar_backend/
 
 - **users**: `id, username (unique), password_hash, display_name, role ('admin'|'user'), allowed_tabs (JSON آرایه یا NULL), created_at`
 - **portfolios**: `id, name, created_at`
-- **transactions**: `id, portfolio_id (FK), ts, type ('buy'|'sell'|'dividend'), date (jalali text), asset, category, qty, price, amount, location, note`
-- **withdrawals**: `id, portfolio_id (FK), ts, category, date, amount, dest, note, level (nullable int), source_txn_id (FK→transactions.id, nullable — لینک به فروشی که این برداشت را ساخته)`
+- **categories** *(v2)*: `id, name (unique), is_default, created_at` — ۷ تای پایه در اولین اجرا seed می‌شوند؛ قابل rename/حذف (اگر استفاده نشده باشند)
+- **accounts** *(v2)*: `id, portfolio_id (FK), name, opening_balance, created_at` — حساب‌های نقدی هر سبد؛ موجودی ذخیره نمی‌شود، همیشه محاسبه می‌شود (`compute_account_balance`)
+- **cash_movements** *(v2)*: `id, account_id (FK), ts, type ('deposit'|'withdraw'|'transfer_in'|'transfer_out'), date, amount, note, transfer_group_id` — واریز/برداشت/انتقال دستی؛ خرید/فروش/سود نقدی مستقیماً از طریق `transactions.account_id` روی موجودی اثر می‌گذارند، نه از این جدول
+- **transactions**: `id, portfolio_id (FK), ts, type ('buy'|'sell'|'dividend'), date (jalali text), asset, category_id (FK), account_id (FK، nullable), qty, price, amount, fee, location, note` — `fee` به cost basis خرید اضافه و از عواید فروش کم می‌شود
+- **withdrawals**: `id, portfolio_id (FK), ts, category_id (FK), date, amount, dest, note, level (nullable int), source_txn_id (FK→transactions.id, nullable — لینک به فروشی که این برداشت را ساخته)`
 - **prices**: `asset (PK), price, updated_at` — قیمت روز مشترک بین همه‌ی سبدها (دقیقاً مثل `PRICES`/`PRICES_UPDATED_AT` در فرانت)
-- **snapshots**: `id, portfolio_id (FK), date, total_value, total_investment, total_unrealized, total_realized, created_at` — یک رکورد فشرده به ازای هر ثبت روند
-- **ladders**: `portfolio_id (FK), category, idx (0..2), threshold_pct, withdraw_pct` — کلید ترکیبی `(portfolio_id, category, idx)`؛ معادل `LADDERS[pid][cat][idx]`
+- **snapshots**: `id, portfolio_id (FK), date, total_value, total_investment, total_unrealized, total_realized, category_breakdown (JSON, کلید=category_id), created_at`
+- **ladders**: `portfolio_id (FK), category_id (FK), idx (0..2), threshold_pct, withdraw_pct` — کلید ترکیبی `(portfolio_id, category_id, idx)`
 
 نکته‌ی طراحی: بر خلاف فرانت که `LADDERS` را کامل با `DEFAULT_LADDERS` لِیزی پر می‌کند،
 بک‌اند فقط ردیف‌هایی را ذخیره می‌کند که واقعاً از پیش‌فرض تغییر کرده‌اند؛
@@ -104,10 +146,18 @@ daftar_backend/
 | GET/POST | /api/portfolios/<pid>/withdrawals | لیست/ثبت برداشت دستی |
 | DELETE | /api/withdrawals/<id> | حذف برداشت |
 | GET/PUT | /api/prices | خواندن/به‌روزرسانی قیمت روز (مشترک بین سبدها) |
-| GET/PUT | /api/portfolios/<pid>/ladders/<cat> | خواندن/تنظیم پله‌های یک کتگوری |
+| GET/PUT | /api/portfolios/<pid>/ladders/<category_id> | خواندن/تنظیم پله‌های یک کتگوری |
 | POST | /api/portfolios/<pid>/secure-profit | 🔒 سیو سود: فروش واقعی + برداشت لینک‌شده، اتمیک |
 | GET/POST | /api/portfolios/<pid>/snapshots | ثبت/خواندن نقطه‌ی روند عملکرد |
 | GET/POST/PUT/DELETE | /api/users | مدیریت کاربران (فقط ادمین) |
+| GET/POST | /api/categories | لیست/ایجاد کتگوری |
+| PUT/DELETE | /api/categories/<id> | rename / حذف کتگوری (فقط اگر استفاده نشده) |
+| GET/POST | /api/portfolios/<pid>/accounts | لیست/ایجاد حساب نقدی این سبد |
+| PUT/DELETE | /api/accounts/<id> | ویرایش/حذف حساب (فقط اگر سابقه‌ی تراکنش ندارد) |
+| GET | /api/accounts/<id>/movements | تاریخچه‌ی واریز/برداشت/انتقال یک حساب |
+| POST | /api/accounts/<id>/deposit | واریز نقدی به حساب |
+| POST | /api/accounts/<id>/withdraw | برداشت نقدی از حساب |
+| POST | /api/portfolios/<pid>/transfer | انتقال نقدی بین دو حساب همان سبد، اتمیک |
 
 ## نکات مهم پیاده‌سازی
 

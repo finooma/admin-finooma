@@ -66,33 +66,42 @@ def compute_holdings(txns: list[dict], prices: dict[str, float]) -> dict:
 
     for t in sorted_txns:
         name = t["asset"]
+        fee = t.get("fee") or 0.0
         a = assets.setdefault(
             name,
             {
                 "qty": 0.0, "avgCost": 0.0, "costBasis": 0.0, "realizedPL": 0.0, "dividend": 0.0,
-                "category": t.get("category"), "location": t.get("location") or "",
+                "categoryId": t.get("category_id"), "location": t.get("location") or "",
                 "firstBuy": None, "lotInvested": 0.0, "lotReceived": 0.0,
             },
         )
-        if t.get("category"):
-            a["category"] = t["category"]
+        if t.get("category_id"):
+            a["categoryId"] = t["category_id"]
         if t.get("location"):
             a["location"] = t["location"]
 
         if t["type"] == "buy":
+            # The fee is added straight into the cost basis — a 100 unit buy with a 2 unit fee
+            # costs 102, exactly like a real brokerage statement, and that 102 is what
+            # unrealized/realized P/L gets measured against from here on.
+            buy_total = t["amount"] + fee
             if a["qty"] <= EPS:
                 a["firstBuy"] = t["date"]
                 a["lotInvested"] = 0.0
                 a["lotReceived"] = 0.0
-            a["costBasis"] += t["amount"]
+            a["costBasis"] += buy_total
             a["qty"] += t["qty"]
             a["avgCost"] = a["costBasis"] / a["qty"] if a["qty"] > EPS else 0.0
-            a["lotInvested"] += t["amount"]
+            a["lotInvested"] += buy_total
 
         elif t["type"] == "sell":
+            # The fee comes straight out of the proceeds — selling 100 units worth with a 2
+            # unit fee nets 98, which is what actually lands back in the cash account and what
+            # realized P/L is computed from.
+            sell_net = t["amount"] - fee
             sell_qty = min(t["qty"], a["qty"])
             proportional_cost = sell_qty * a["avgCost"]
-            proportional_proceeds = t["amount"] * (sell_qty / t["qty"]) if t["qty"] > EPS else 0.0
+            proportional_proceeds = sell_net * (sell_qty / t["qty"]) if t["qty"] > EPS else 0.0
             a["realizedPL"] += proportional_proceeds - proportional_cost
             a["lotReceived"] += proportional_proceeds
             a["qty"] -= sell_qty
@@ -101,7 +110,7 @@ def compute_holdings(txns: list[dict], prices: dict[str, float]) -> dict:
             a["costBasis"] = a["qty"] * a["avgCost"]
             if a["qty"] == 0:
                 rec = {
-                    "asset": name, "category": a["category"],
+                    "asset": name, "categoryId": a["categoryId"],
                     "profit": a["realizedPL"] + a["dividend"],
                     "firstBuy": a["firstBuy"], "lastSell": t["date"],
                     "invested": a["lotInvested"], "received": a["lotReceived"],
@@ -116,12 +125,13 @@ def compute_holdings(txns: list[dict], prices: dict[str, float]) -> dict:
                 a["lotReceived"] = 0.0
 
         elif t["type"] == "dividend":
+            div_net = t["amount"] - fee
             if a["qty"] > EPS:
-                a["dividend"] += t["amount"]
+                a["dividend"] += div_net
             else:
                 lc = last_closed_for_asset.get(name)
                 if lc:
-                    lc["profit"] += t["amount"]
+                    lc["profit"] += div_net
 
     holdings = []
     for name, a in assets.items():
@@ -133,7 +143,7 @@ def compute_holdings(txns: list[dict], prices: dict[str, float]) -> dict:
             unrealized_pct = (unrealized / a["costBasis"] * 100) if (has_price and a["costBasis"] > EPS_SMALL) else 0.0
             realized = a["realizedPL"] + a["dividend"]
             holdings.append({
-                "name": name, "category": a["category"], "location": a["location"],
+                "name": name, "categoryId": a["categoryId"], "location": a["location"],
                 "qty": a["qty"], "avgCost": a["avgCost"], "costBasis": a["costBasis"],
                 "price": price, "hasPrice": has_price, "value": value,
                 "unrealized": unrealized, "unrealizedPct": unrealized_pct,
@@ -157,8 +167,9 @@ def compute_holdings_for_portfolio(
 
 def compute_asset_txn_realized(txns_for_asset_and_portfolio: list[dict]) -> dict[str, float]:
     """Per-transaction realized P/L for one asset within one portfolio, keyed by txn id —
-    same weighted-average logic as compute_holdings, but attributed per sell instead of summed.
-    Summing every value in the returned dict reproduces that asset's aggregate realized P/L."""
+    same weighted-average logic as compute_holdings (fee included), but attributed per sell
+    instead of summed. Summing every value in the returned dict reproduces that asset's
+    aggregate realized P/L."""
     result: dict[str, float] = {}
     sorted_txns = sorted(txns_for_asset_and_portfolio, key=lambda t: (jalali_sort_key(t["date"]), t.get("ts", 0)))
     qty = 0.0
@@ -167,15 +178,17 @@ def compute_asset_txn_realized(txns_for_asset_and_portfolio: list[dict]) -> dict
     last_closed_txn_id = None
 
     for t in sorted_txns:
+        fee = t.get("fee") or 0.0
         if t["type"] == "buy":
-            cost_basis += t["amount"]
+            cost_basis += t["amount"] + fee
             qty += t["qty"]
             avg_cost = cost_basis / qty if qty > EPS else 0.0
             last_closed_txn_id = None
         elif t["type"] == "sell":
+            sell_net = t["amount"] - fee
             sell_qty = min(t["qty"], qty)
             proportional_cost = sell_qty * avg_cost
-            proportional_proceeds = t["amount"] * (sell_qty / t["qty"]) if t["qty"] > EPS else 0.0
+            proportional_proceeds = sell_net * (sell_qty / t["qty"]) if t["qty"] > EPS else 0.0
             result[t["id"]] = proportional_proceeds - proportional_cost
             qty -= sell_qty
             if qty < EPS_SMALL:
@@ -187,13 +200,14 @@ def compute_asset_txn_realized(txns_for_asset_and_portfolio: list[dict]) -> dict
             else:
                 last_closed_txn_id = None
         elif t["type"] == "dividend":
+            div_net = t["amount"] - fee
             if qty > EPS:
-                result[t["id"]] = t["amount"]
+                result[t["id"]] = div_net
             elif last_closed_txn_id:
-                result[last_closed_txn_id] = result.get(last_closed_txn_id, 0.0) + t["amount"]
+                result[last_closed_txn_id] = result.get(last_closed_txn_id, 0.0) + div_net
                 result[t["id"]] = 0.0
             else:
-                result[t["id"]] = t["amount"]
+                result[t["id"]] = div_net
 
     return result
 
@@ -206,14 +220,14 @@ def category_agg(holdings: list[dict], closed: Optional[list[dict]] = None) -> d
         return agg.setdefault(cat, {"investment": 0.0, "value": 0.0, "unrealized": 0.0, "realized": 0.0})
 
     for h in holdings:
-        c = ensure(h["category"])
+        c = ensure(h["categoryId"])
         c["investment"] += h["costBasis"]
         c["value"] += h["value"]
         c["unrealized"] += h["unrealized"]
         c["realized"] += h["realized"]
 
     for c in closed:
-        ensure(c["category"])["realized"] += c["profit"]
+        ensure(c["categoryId"])["realized"] += c["profit"]
 
     for c in agg.values():
         c["overall"] = c["unrealized"] + c["realized"]
@@ -257,3 +271,40 @@ def ladder_rung_calc(a: dict, lv: dict) -> dict:
         "targetValue": target_value, "remaining": remaining,
         "achieved": achieved, "progress": progress,
     }
+
+
+# ---------- cash accounts (Microsoft-Money-style) ----------
+
+def txn_cash_impact(t: dict) -> float:
+    """How much a single buy/sell/dividend transaction moves an account's cash balance, signed
+    (negative = cash leaves the account). A transaction that isn't linked to any account
+    (account_id is None) should never even be passed in here — callers filter for that first."""
+    fee = t.get("fee") or 0.0
+    if t["type"] == "buy":
+        return -(t["amount"] + fee)
+    if t["type"] == "sell":
+        return t["amount"] - fee
+    if t["type"] == "dividend":
+        return t["amount"] - fee
+    return 0.0
+
+
+def cash_movement_impact(m: dict) -> float:
+    """Signed cash effect of one deposit/withdraw/transfer row."""
+    if m["type"] in ("deposit", "transfer_in"):
+        return m["amount"]
+    if m["type"] in ("withdraw", "transfer_out"):
+        return -m["amount"]
+    return 0.0
+
+
+def compute_account_balance(opening_balance: float, movements: list[dict], txns_for_account: list[dict]) -> float:
+    """balance = opening balance + every deposit/withdraw/transfer + every buy/sell/dividend
+    that was paid through this account. Recomputed from the full ledger every time (never
+    stored), exactly like every other running total in this app."""
+    total = opening_balance
+    for m in movements:
+        total += cash_movement_impact(m)
+    for t in txns_for_account:
+        total += txn_cash_impact(t)
+    return total

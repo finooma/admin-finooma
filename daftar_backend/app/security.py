@@ -90,11 +90,7 @@ def require_tab(tab_key: str):
                 import json
 
                 allowed = json.loads(g.user["allowed_tabs"]) if g.user["allowed_tabs"] else PERMISSIBLE_TABS
-                # Tab permissions control which screens are shown in the UI;
-                # every authenticated user must receive the same read-only
-                # source data as the admin so an allowed tab is not incomplete.
-                # Write endpoints have their own require_admin protection.
-                if request.method != "GET" and tab_key not in allowed:
+                if tab_key not in allowed:
                     raise ForbiddenError(f"شما به بخش «{tab_key}» دسترسی ندارید.")
             return fn(*args, **kwargs)
 

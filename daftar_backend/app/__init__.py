@@ -60,6 +60,8 @@ def create_app(config_overrides: dict | None = None) -> Flask:
     from .routes.secure_profit import bp as secure_profit_bp
     from .routes.snapshots import bp as snapshots_bp
     from .routes.users import bp as users_bp
+    from .routes.categories import bp as categories_bp
+    from .routes.accounts import bp as accounts_bp
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(portfolios_bp, url_prefix="/api/portfolios")
@@ -71,6 +73,8 @@ def create_app(config_overrides: dict | None = None) -> Flask:
     app.register_blueprint(secure_profit_bp, url_prefix="/api/portfolios")
     app.register_blueprint(snapshots_bp, url_prefix="/api/portfolios")
     app.register_blueprint(users_bp, url_prefix="/api/users")
+    app.register_blueprint(categories_bp, url_prefix="/api/categories")
+    app.register_blueprint(accounts_bp, url_prefix="/api/accounts")
 
     @app.errorhandler(ApiError)
     def handle_api_error(err: ApiError):

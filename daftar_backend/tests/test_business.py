@@ -6,12 +6,14 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app.business import (
     compute_holdings, category_agg, compute_asset_txn_realized,
     ladder_levels_with_defaults, ladder_rung_calc, DEFAULT_LADDERS,
+    txn_cash_impact, compute_account_balance,
 )
 
 
-def txn(id, type, date, asset, category="کریپتو", qty=0, price=0, amount=0, ts=0):
-    return {"id": id, "type": type, "date": date, "asset": asset, "category": category,
-            "qty": qty, "price": price, "amount": amount, "location": "", "ts": ts}
+def txn(id, type, date, asset, category_id="crypto", qty=0, price=0, amount=0, fee=0, ts=0, account_id=None):
+    return {"id": id, "type": type, "date": date, "asset": asset, "category_id": category_id,
+            "qty": qty, "price": price, "amount": amount, "fee": fee, "location": "", "ts": ts,
+            "account_id": account_id}
 
 
 def test_weighted_average_cost_on_partial_sell():
@@ -29,6 +31,24 @@ def test_weighted_average_cost_on_partial_sell():
     assert h["realized"] == 300 - 150  # realized P/L from the sell
     assert h["value"] == 400  # 1 unit * day price
     assert h["unrealized"] == 400 - 150
+
+
+def test_fee_increases_buy_cost_and_reduces_sell_proceeds():
+    txns = [
+        txn("1", "buy", "1404/01/01", "BTC", qty=1, price=100, amount=100, fee=5),
+        # cost basis is 105 (100 + 5 fee), not 100
+    ]
+    result = compute_holdings(txns, prices={"BTC": 200})
+    h = result["holdings"][0]
+    assert h["costBasis"] == 105
+    assert h["avgCost"] == 105
+
+    txns2 = txns + [
+        txn("2", "sell", "1404/02/01", "BTC", qty=1, price=200, amount=200, fee=10),
+        # net proceeds are 190 (200 - 10 fee); realized = 190 - 105 = 85
+    ]
+    result2 = compute_holdings(txns2, prices={})
+    assert result2["closed"][0]["profit"] == 190 - 105
 
 
 def test_full_exit_creates_closed_lot_and_resets():
@@ -70,12 +90,12 @@ def test_sell_never_oversells_defensive_clamp():
 
 def test_category_agg_sums_across_assets_and_closed_lots():
     holdings = [
-        {"category": "طلا", "costBasis": 100, "value": 150, "unrealized": 50, "realized": 0},
-        {"category": "طلا", "costBasis": 200, "value": 180, "unrealized": -20, "realized": 10},
+        {"categoryId": "gold", "costBasis": 100, "value": 150, "unrealized": 50, "realized": 0},
+        {"categoryId": "gold", "costBasis": 200, "value": 180, "unrealized": -20, "realized": 10},
     ]
-    closed = [{"category": "طلا", "profit": 40}]
+    closed = [{"categoryId": "gold", "profit": 40}]
     agg = category_agg(holdings, closed)
-    g = agg["طلا"]
+    g = agg["gold"]
     assert g["investment"] == 300
     assert g["value"] == 330
     assert g["unrealized"] == 30
@@ -110,3 +130,23 @@ def test_compute_asset_txn_realized_sums_to_holdings_realized():
     holdings_result = compute_holdings(txns, prices={})
     total_realized = sum(c["profit"] for c in holdings_result["closed"])
     assert round(sum(per_txn.values()), 6) == round(total_realized, 6)
+
+
+def test_txn_cash_impact_buy_sell_dividend():
+    assert txn_cash_impact({"type": "buy", "amount": 100, "fee": 5}) == -105
+    assert txn_cash_impact({"type": "sell", "amount": 100, "fee": 5}) == 95
+    assert txn_cash_impact({"type": "dividend", "amount": 20, "fee": 0}) == 20
+
+
+def test_compute_account_balance_combines_opening_movements_and_transactions():
+    movements = [
+        {"type": "deposit", "amount": 1000},
+        {"type": "withdraw", "amount": 200},
+    ]
+    txns_for_account = [
+        {"type": "buy", "amount": 300, "fee": 3},   # -303
+        {"type": "sell", "amount": 150, "fee": 2},  # +148
+    ]
+    balance = compute_account_balance(500, movements, txns_for_account)
+    # 500 (opening) + 1000 - 200 - 303 + 148
+    assert balance == 500 + 1000 - 200 - 303 + 148

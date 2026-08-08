@@ -33,14 +33,14 @@
     forced-color-adjust: none;
     direction:rtl; font-family:var(--font-fa); background:var(--bg); color:var(--ink);
     border:1px solid var(--border-soft); border-radius:14px; overflow:hidden;
-    max-width:100%; margin:0; line-height:1.65; font-size:14px;
+    max-width:100%; margin:0; line-height:1.65; font-size:16px;
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
   .ledger-root *{font-family:inherit;}
   .ledger-root .num{font-family:var(--font-fa); font-feature-settings:'tnum' 1,'lnum' 1; letter-spacing:.01em;}
   .ledger-root h1,.ledger-root h2,.ledger-root h3{margin:0; font-weight:800;}
   .ledger-root button{font-family:inherit; cursor:pointer;}
-  .ledger-root input,.ledger-root select{font-family:inherit; background:var(--surface-2s); border:1px solid var(--border); color:var(--ink); border-radius:8px; padding:7px 11px; font-size:13.5px; width:100%; transition:border-color .15s, box-shadow .15s;}
+  .ledger-root input,.ledger-root select{font-family:inherit; background:var(--surface-2s); border:1px solid var(--border); color:var(--ink); border-radius:8px; padding:7px 11px; font-size:15.5px; width:100%; transition:border-color .15s, box-shadow .15s;}
   .ledger-root input:focus,.ledger-root select:focus{outline:none; border-color:var(--gold-dim); box-shadow:0 0 0 3px var(--gold-glow);}
   .ledger-root input::placeholder{color:var(--ink-faint);}
   .ledger-root input[readonly]{color:var(--ink); opacity:1; background:var(--surface-2s);}
@@ -53,11 +53,11 @@
   .topbar{display:flex; align-items:center; justify-content:space-between; padding:16px 22px; background:linear-gradient(135deg,#1C1A0F 0%,#15130B 55%,#171407 100%); border-bottom:1px solid var(--border-soft); position:relative;}
   .topbar::after{content:''; position:absolute; inset-inline:0; bottom:-1px; height:1px; background:linear-gradient(90deg,transparent,var(--gold-dim) 30%,var(--gold-dim) 70%,transparent); opacity:.5;}
   .brand{display:flex; align-items:center; gap:13px;}
-  .brand h1{font-size:17.5px; letter-spacing:.2px;}
-  .brand p{margin:2px 0 0; font-size:11.5px; color:var(--ink-dim);}
+  .brand h1{font-size:20px; letter-spacing:.2px;}
+  .brand p{margin:2px 0 0; font-size:13px; color:var(--ink-dim);}
   .topbar-actions{display:flex; gap:8px; align-items:center;}
 
-  .btn{border:1px solid var(--border); background:var(--surface-2); color:var(--ink); padding:7px 14px; border-radius:8px; font-size:12.5px; font-weight:600; transition:border-color .15s, color .15s, background .15s, transform .08s;}
+  .btn{border:1px solid var(--border); background:var(--surface-2); color:var(--ink); padding:7px 14px; border-radius:8px; font-size:14.5px; font-weight:600; transition:border-color .15s, color .15s, background .15s, transform .08s;}
   .btn:hover{border-color:var(--gold-dim); color:var(--gold-soft);}
   .btn:active{transform:translateY(1px);}
   .btn-gold{background:linear-gradient(180deg,var(--gold-soft) -40%,var(--gold) 60%); border-color:var(--gold); color:#191504; box-shadow:0 1px 0 rgba(255,255,255,.12) inset, 0 4px 14px -6px rgba(201,162,39,.5);}
@@ -65,20 +65,20 @@
   .btn-ghost{background:transparent;}
   .btn-danger{color:var(--red); border-color:var(--red-bg);}
   .btn-danger:hover{border-color:var(--red); color:#fff;}
-  .btn-xs{padding:4px 10px; font-size:11px; border-radius:7px;}
+  .btn-xs{padding:4px 10px; font-size:12.5px; border-radius:7px;}
   .btn-block{width:100%;}
 
   .kpi-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border-soft); border-bottom:1px solid var(--border-soft);}
   .kpi{background:linear-gradient(180deg,var(--surface) 0%,#1A180F 100%); padding:15px 20px 13px; position:relative; overflow:hidden;}
   .kpi::before{content:''; position:absolute; inset-inline-start:0; top:0; bottom:0; width:3px; background:var(--kpi-accent,transparent); opacity:.85;}
-  .kpi .lbl{font-size:11px; color:var(--ink-dim); margin-bottom:7px; display:flex; align-items:center; gap:6px;}
+  .kpi .lbl{font-size:12.5px; color:var(--ink-dim); margin-bottom:7px; display:flex; align-items:center; gap:6px;}
   .kpi .lbl svg{flex-shrink:0; opacity:.7;}
-  .kpi .val{font-size:19px; font-weight:750; line-height:1.3; font-feature-settings:'tnum' 1;}
-  .kpi .sub{font-size:10.5px; color:var(--ink-faint); margin-top:3px;}
+  .kpi .val{font-size:22px; font-weight:750; line-height:1.3; font-feature-settings:'tnum' 1;}
+  .kpi .sub{font-size:12px; color:var(--ink-faint); margin-top:3px;}
   @media (max-width:700px){ .kpi-strip{grid-template-columns:repeat(2,1fr);} }
 
   .tabs{display:flex; gap:4px; padding:9px 14px; background:var(--bg-deep); border-bottom:1px solid var(--border-soft); overflow-x:auto;}
-  .tab{background:transparent; border:1px solid transparent; color:var(--ink-dim); padding:7px 15px; font-size:13px; font-weight:600; border-radius:99px; white-space:nowrap; transition:color .15s, background .15s, border-color .15s;}
+  .tab{background:transparent; border:1px solid transparent; color:var(--ink-dim); padding:7px 15px; font-size:15px; font-weight:600; border-radius:99px; white-space:nowrap; transition:color .15s, background .15s, border-color .15s;}
   .tab:hover{color:var(--ink); background:var(--surface-2);}
   .tab.active{color:var(--gold-soft); background:var(--gold-glow); border-color:var(--gold-dim);}
 
@@ -88,21 +88,21 @@
   .card{background:var(--surface); border:1px solid var(--border-soft); border-radius:var(--radius); padding:17px 18px; box-shadow:var(--shadow-card);}
   .card + .card{margin-top:14px;}
   .card-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; gap:10px; flex-wrap:wrap;}
-  .card-head h3{font-size:13.5px; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  .card-head h3{font-size:15.5px; color:var(--ink); display:flex; align-items:center; gap:8px;}
   .card-head h3::before{content:''; width:4px; height:15px; border-radius:3px; background:linear-gradient(180deg,var(--gold-soft),var(--gold-dim)); flex-shrink:0;}
-  .muted{color:var(--ink-dim); font-size:12px;}
+  .muted{color:var(--ink-dim); font-size:14px;}
 
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
   .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;}
   @media (max-width:780px){ .grid2,.grid3{grid-template-columns:1fr;} }
 
   .field{margin-bottom:11px;}
-  .field label{display:block; font-size:11.5px; color:var(--ink-dim); margin-bottom:5px;}
+  .field label{display:block; font-size:13px; color:var(--ink-dim); margin-bottom:5px;}
   .field-row{display:flex; gap:10px;}
   .field-row .field{flex:1;}
 
-  table{width:100%; border-collapse:collapse; font-size:12.8px;}
-  th{text-align:right; color:var(--ink-faint); font-weight:650; font-size:10.5px; letter-spacing:.02em; padding:9px 10px; border-bottom:1px solid var(--border); white-space:nowrap; background:rgba(0,0,0,.14);}
+  table{width:100%; border-collapse:collapse; font-size:15px;}
+  th{text-align:right; color:var(--ink-faint); font-weight:650; font-size:12px; letter-spacing:.02em; padding:9px 10px; border-bottom:1px solid var(--border); white-space:nowrap; background:rgba(0,0,0,.14);}
   td{padding:9.5px 10px; border-bottom:1px solid var(--border-soft); white-space:nowrap;}
   tbody tr{transition:background .12s;}
   tbody tr:hover{background:var(--gold-glow);}
@@ -111,40 +111,40 @@
   .table-wrap table{min-width:680px;}
 
   .pos{color:var(--green);} .neg{color:var(--red);}
-  .badge{display:inline-block; padding:2px 9px; border-radius:20px; font-size:10.5px; font-weight:700;}
+  .badge{display:inline-block; padding:2px 9px; border-radius:20px; font-size:12px; font-weight:700;}
   .badge-buy{background:var(--green-bg); color:var(--green);}
   .badge-sell{background:var(--red-bg); color:var(--red);}
   .badge-div{background:#2A2718; color:var(--gold-soft);}
   .badge-cat{background:var(--surface-3); color:var(--ink-dim); font-weight:600;}
 
-  .empty{text-align:center; padding:34px 18px; color:var(--ink-faint); font-size:13px;}
+  .empty{text-align:center; padding:34px 18px; color:var(--ink-faint); font-size:15px;}
   .empty b{color:var(--ink-dim);}
 
   .alert-card{border-color:var(--gold-dim);}
-  .alert-item{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border-soft); font-size:12.5px;}
+  .alert-item{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border-soft); font-size:14.5px;}
   .alert-item:last-child{border-bottom:none;}
-  .alert-icon{font-size:16px; flex-shrink:0;}
+  .alert-icon{font-size:18px; flex-shrink:0;}
   .alert-item .btn{flex-shrink:0;}
 
   .modal-overlay{position:fixed; inset:0; background:rgba(0,0,0,.62); z-index:1000; display:flex; align-items:center; justify-content:center; padding:20px;}
   .modal-overlay.hidden{display:none;}
   .modal-box{background:var(--surface); border:1px solid var(--gold-dim); border-radius:10px; padding:20px; max-width:460px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,.6);}
   .modal-box.modal-box-wide{max-width:920px;}
-  .modal-box h3{font-size:14.5px; color:var(--ink);}
-  .modal-close{cursor:pointer; color:var(--ink-dim); font-size:16px; background:none; border:none; padding:2px 6px; line-height:1;}
+  .modal-box h3{font-size:16.5px; color:var(--ink);}
+  .modal-close{cursor:pointer; color:var(--ink-dim); font-size:18px; background:none; border:none; padding:2px 6px; line-height:1;}
   .modal-close:hover{color:var(--ink);}
   .btn-secure{background:var(--surface-3); color:var(--gold-soft); border:1px solid var(--gold-dim);}
   .btn-secure:hover{background:var(--gold-dim); color:var(--bg);}
   .import-row-error{background:var(--red-bg);}
   .import-row-ok{background:transparent;}
-  .import-status-ok{color:var(--green); font-size:12px;}
-  .import-status-err{color:var(--red); font-size:11.5px;}
+  .import-status-ok{color:var(--green); font-size:14px;}
+  .import-status-err{color:var(--red); font-size:13px;}
 
   .legend-dot{width:9px; height:9px; border-radius:2px; display:inline-block;}
 
-  .donut-tooltip{position:fixed; z-index:1000; background:var(--surface-3); border:1px solid var(--gold-dim); border-radius:8px; padding:10px 14px; font-size:12px; box-shadow:0 8px 24px rgba(0,0,0,.5); pointer-events:none; min-width:180px;}
+  .donut-tooltip{position:fixed; z-index:1000; background:var(--surface-3); border:1px solid var(--gold-dim); border-radius:8px; padding:10px 14px; font-size:14px; box-shadow:0 8px 24px rgba(0,0,0,.5); pointer-events:none; min-width:180px;}
   .donut-tooltip.hidden{display:none;}
-  .donut-tooltip .dt-title{display:flex; align-items:center; gap:6px; font-weight:700; margin-bottom:6px; font-size:12.5px; color:var(--ink);}
+  .donut-tooltip .dt-title{display:flex; align-items:center; gap:6px; font-weight:700; margin-bottom:6px; font-size:14.5px; color:var(--ink);}
   .donut-tooltip .dt-row{display:flex; justify-content:space-between; gap:14px; margin-top:3px; color:var(--ink);}
   .donut-tooltip .dt-row span:first-child{color:var(--ink-dim);}
 
@@ -153,16 +153,16 @@
 
   .ladder-row{display:grid; grid-template-columns:90px 90px 1fr 148px; gap:10px; align-items:center; padding:10px; border-bottom:1px solid var(--border-soft); border-radius:6px;}
   .ladder-row:last-child{border-bottom:none;}
-  .ladder-row input{padding:5px 7px; font-size:12.5px; text-align:center;}
+  .ladder-row input{padding:5px 7px; font-size:14.5px; text-align:center;}
   .ladder-row-secured{background:var(--green-bg); border-bottom-color:var(--border-soft);}
   @media (max-width:700px){ .ladder-row{grid-template-columns:1fr 1fr; row-gap:6px;} }
 
-  .toast{position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:var(--surface-3); border:1px solid var(--gold-dim); color:var(--ink); padding:10px 18px; border-radius:8px; font-size:12.5px; box-shadow:0 6px 20px rgba(0,0,0,.4); z-index:999; opacity:0; transition:opacity .25s;}
+  .toast{position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:var(--surface-3); border:1px solid var(--gold-dim); color:var(--ink); padding:10px 18px; border-radius:8px; font-size:14.5px; box-shadow:0 6px 20px rgba(0,0,0,.4); z-index:999; opacity:0; transition:opacity .25s;}
   .toast.show{opacity:1;}
   .toast.err{border-color:var(--red);}
 
   .row-actions{display:flex; gap:6px; justify-content:flex-end;}
-  .expand-toggle{background:transparent; border:1px solid var(--border); color:var(--ink-dim); width:26px; height:26px; border-radius:5px; font-size:11px; line-height:1; display:inline-flex; align-items:center; justify-content:center; transition:.15s;}
+  .expand-toggle{background:transparent; border:1px solid var(--border); color:var(--ink-dim); width:26px; height:26px; border-radius:5px; font-size:12.5px; line-height:1; display:inline-flex; align-items:center; justify-content:center; transition:.15s;}
   .expand-toggle:hover{border-color:var(--gold-dim); color:var(--gold-soft);}
   .expand-toggle.open{color:var(--gold-soft); border-color:var(--gold-dim); transform:rotate(180deg);}
   .asset-detail-row td{background:var(--surface-2); padding:0;}
@@ -172,7 +172,7 @@
   .chart-toggle{display:flex; gap:6px; margin-bottom:10px;}
   .chart-toggle button{flex:none;}
   .chart-toggle button.active{background:var(--gold); color:#1A1708; border-color:var(--gold);}
-  .stat-mini{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:10px; font-size:12.5px;}
+  .stat-mini{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:10px; font-size:14.5px;}
   .stat-mini b{font-family:var(--font-mono);}
 
   /* ---- ladder tab: simplified collapsible category/asset accordion ---- */
@@ -180,18 +180,18 @@
   .lad-cat-head{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 14px; cursor:pointer; user-select:none;}
   .lad-cat-head:hover{background:var(--surface-3);}
   .lad-cat-head-left{display:flex; align-items:center; gap:10px; min-width:0;}
-  .lad-cat-head-left h3{font-size:13.5px; margin:0; display:flex; align-items:center; gap:8px; white-space:nowrap;}
+  .lad-cat-head-left h3{font-size:15.5px; margin:0; display:flex; align-items:center; gap:8px; white-space:nowrap;}
   .lad-cat-head-right{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
   .lad-cat-body{padding:0 14px 14px 14px; border-top:1px solid var(--border-soft);}
   .lad-asset{border:1px solid var(--border-soft); border-radius:8px; margin-top:10px; overflow:hidden;}
   .lad-asset-head{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; cursor:pointer; user-select:none; background:var(--surface);}
   .lad-asset-head:hover{background:var(--surface-3);}
   .lad-asset-head-left{display:flex; align-items:center; gap:8px; min-width:0;}
-  .lad-asset-head-left span.name{font-size:12.5px; font-weight:600;}
+  .lad-asset-head-left span.name{font-size:14.5px; font-weight:600;}
   .lad-asset-body{padding:12px; border-top:1px solid var(--border-soft);}
-  .lad-empty{padding:10px 2px; font-size:12px;}
+  .lad-empty{padding:10px 2px; font-size:14px;}
   .hr{height:1px; background:var(--border-soft); margin:14px 0;}
-  .small-note{font-size:11px; color:var(--ink-faint); margin-top:4px;}
+  .small-note{font-size:12.5px; color:var(--ink-faint); margin-top:4px;}
   .link-btn{background:none; border:none; padding:0; margin:0; color:var(--gold); font-weight:600; font-size:inherit; font-family:inherit; cursor:pointer; text-decoration:underline; text-underline-offset:3px;}
   .link-btn:hover{color:var(--gold-light,var(--gold)); opacity:0.85;}
   /* Compact 3-up stat row (dashboard: best/worst performer, concentration) — one bordered
@@ -201,7 +201,7 @@
   .mini-stats-row > div:first-child{padding-right:0;}
   .mini-stats-row > div:last-child{padding-left:0;}
   .mini-stats-row > div + div{border-right:1px solid var(--border-soft);}
-  .mini-stats-row .lbl{font-size:11px; color:var(--ink-dim); margin-bottom:5px;}
+  .mini-stats-row .lbl{font-size:12.5px; color:var(--ink-dim); margin-bottom:5px;}
   @media (max-width:780px){
     .mini-stats-row{grid-template-columns:1fr; gap:10px;}
     .mini-stats-row > div{padding:0 !important; border-right:none !important;}
@@ -214,7 +214,7 @@
   @media (prefers-reduced-motion:reduce){ main.panel > section{animation:none;} }
 
   .chipbar{display:flex; gap:6px; flex-wrap:wrap;}
-  .chip{border:1px solid var(--border); background:var(--surface-2); color:var(--ink-dim); padding:4px 13px; border-radius:99px; font-size:11.5px; font-weight:600; transition:color .15s, background .15s, border-color .15s;}
+  .chip{border:1px solid var(--border); background:var(--surface-2); color:var(--ink-dim); padding:4px 13px; border-radius:99px; font-size:13px; font-weight:600; transition:color .15s, background .15s, border-color .15s;}
   .chip:hover{color:var(--ink); border-color:var(--gold-dim);}
   .chip.active{color:var(--gold-soft); background:var(--gold-glow); border-color:var(--gold-dim);}
 
@@ -232,18 +232,14 @@
   .stat-tile .tile-ico.bad{background:var(--red-bg); color:var(--red);}
   .stat-tile .tile-ico.gold{background:var(--gold-glow); color:var(--gold-soft);}
   .stat-tile .tile-body{min-width:0;}
-  .stat-tile .tile-name{font-size:13px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .stat-tile .tile-name{font-size:15px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 
-  .delta-chip{display:inline-flex; align-items:center; gap:4px; padding:2px 9px; border-radius:99px; font-size:11.5px; font-weight:700; font-feature-settings:'tnum' 1;}
+  .delta-chip{display:inline-flex; align-items:center; gap:4px; padding:2px 9px; border-radius:99px; font-size:13px; font-weight:700; font-feature-settings:'tnum' 1;}
   .delta-chip.pos{background:var(--green-bg); color:var(--green);}
   .delta-chip.neg{background:var(--red-bg); color:var(--red);}
   .delta-chip.flat{background:var(--surface-3); color:var(--ink-dim);}
 
   .alert-card{border-inline-start:3px solid var(--gold); background:linear-gradient(90deg,rgba(201,162,39,.05),transparent 40%), var(--surface);}
-  .alert-card .alert-item{max-height:48px; overflow:hidden; cursor:pointer; transition:max-height .2s ease;}
-  .alert-card.alert-expanded .alert-item{max-height:240px;}
-  .field.invalid input,.field.invalid select{border-color:var(--red) !important; box-shadow:0 0 0 2px var(--red-bg);}
-  .date-picker-inline{width:42px; min-width:42px; padding:7px 4px;}
 </style>
 
 <div class="ledger-root" id="ledgerRoot">
@@ -261,9 +257,13 @@
       </div>
     </div>
     <div class="topbar-actions" id="topbarActions">
-      <span class="muted" id="userInfo" style="font-size:11.5px;"></span>
+      <span class="muted" id="userInfo" style="font-size:13px;"></span>
+      <button class="btn btn-ghost btn-xs hidden" id="btnAlerts" style="position:relative;" title="هشدارها">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-3px;"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg>
+        <span id="alertsBadge" class="hidden" style="position:absolute; top:-4px; left:-4px; background:var(--red); color:#fff; border-radius:999px; font-size:11px; min-width:15px; height:15px; display:flex; align-items:center; justify-content:center; padding:0 3px;"></span>
+      </button>
       <button class="btn btn-ghost btn-xs hidden" id="btnLogout">خروج</button>
-      <span class="muted" id="saveStatus" style="font-size:11px;"></span>
+      <span class="muted" id="saveStatus" style="font-size:12.5px;"></span>
       <button class="btn btn-ghost btn-xs hidden" id="btnRetrySave"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="vertical-align:-1px;"><path d="M21 12a9 9 0 11-2.6-6.4M21 3v6h-6"/></svg> تلاش دوباره برای ذخیره</button>
       <button class="btn btn-ghost btn-xs hidden" id="btnRestoreTrigger"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="vertical-align:-1px;"><path d="M12 19V5M5 12l7-7 7 7"/></svg> بازیابی</button>
       <input type="file" id="fileRestore" class="hidden" accept="application/json">
@@ -277,25 +277,33 @@
 
     <nav class="tabs" id="tabs">
       <button class="tab active" data-tab="dashboard">داشبورد</button>
-      <button class="tab" data-tab="add">ثبت تراکنش</button>
+      <button class="tab" data-tab="manage">مدیریت</button>
       <button class="tab" data-tab="holdings">پرتفوی</button>
       <button class="tab" data-tab="sold">فروخته‌شده</button>
       <button class="tab" data-tab="trend">روند عملکرد</button>
       <button class="tab" data-tab="ladders">پله‌های سود</button>
       <button class="tab hidden" data-tab="portfolios" id="tabPortfoliosBtn">سبدها</button>
-      <button class="tab hidden" data-tab="users" id="tabUsersBtn">کاربران</button>
     </nav>
 
     <main class="panel">
       <section id="tab-dashboard"></section>
-      <section id="tab-add" class="hidden"></section>
+      <section id="tab-manage" class="hidden">
+        <div id="manageHub"></div>
+        <div id="tab-add" class="hidden"></div>
+        <div id="tab-categories" class="hidden"></div>
+        <div id="tab-accounts" class="hidden"></div>
+        <div id="tab-users" class="hidden"></div>
+      </section>
       <section id="tab-holdings" class="hidden"></section>
       <section id="tab-sold" class="hidden"></section>
       <section id="tab-trend" class="hidden"></section>
       <section id="tab-ladders" class="hidden"></section>
       <section id="tab-portfolios" class="hidden"></section>
-      <section id="tab-users" class="hidden"></section>
     </main>
+  </div>
+
+  <div id="alertsModal" class="modal-overlay hidden">
+    <div class="modal-box" id="alertsModalBox"></div>
   </div>
 
   <div id="secureProfitModal" class="modal-overlay hidden">
@@ -307,6 +315,7 @@
   </div>
 </div>
 <div id="toastBox"></div>
+
 
 <datalist id="categoryList"></datalist>
 <datalist id="assetList"></datalist>
@@ -324,6 +333,8 @@
 
 /* ---------- state ---------- */
 let TXNS=[], WITHDRAWALS=[], PRICES={}, PRICES_UPDATED_AT={}, SNAPSHOTS=[], LADDERS={}, USERS=[];
+let CATEGORIES=[]; // {id, name, isDefault, createdAt} — managed centrally now (v2); rename/delete from the "کتگوری‌ها" tab
+let ACCOUNTS=[];   // [{id, name, openingBalance, balance, createdAt}, ...] — GLOBAL cash accounts (à la Microsoft Money), shared across every portfolio
 let PORTFOLIOS=[]; // {id, name, createdAt} — independent "accounts", à la Microsoft Money
 // There is no persistent "active portfolio" — Dashboard/Holdings/Sold/Trend/Ladders always
 // show every portfolio combined. addTabPortfolioId is a lightweight, non-persisted UI
@@ -335,12 +346,18 @@ let CURRENT_USER=null;
 let editingTxnId=null;
 let editingUserId=null;
 let editingPortfolioId=null;
+let manageView=null; // 'add' | 'categories' | 'accounts' | 'users' — which section the unified «مدیریت» tab is showing
+let editingCategoryId=null;
+let editingAccountId=null;
+let expandedAccountId=null; // which account's row is expanded to show its deposit/withdraw forms + history
+let ACCOUNT_MOVEMENTS_CACHE={}; // {[accountId]: [{...cash_movement}, ...]} — fetched lazily when a row expands
 let trendMode='value';
 let trendChartType='line';
 let expandedHoldings=new Set();
 let ladderOpenCats=new Set(); // keys "pid|cat" — which category cards are expanded in the ladders tab
 let ladderOpenAsset={}; // map "pid|cat" -> asset name currently expanded (or absent) in the ladders tab
 let dashboardFilter='__all__';
+let compositionSort={key:null, dir:1}; // {key: one of investment/value/unrealized/realized/overall/pct/label, dir: 1|-1}
 // Per-tab, non-persisted portfolio filters — each tab remembers its own choice independently
 // (no shared/global "active portfolio"). '__all__' means combined across every portfolio.
 let holdingsFilterPid='__all__';
@@ -382,6 +399,31 @@ function fmtT(n){ return fmt(n)+' تومان'; }
 function fmtPct(n){ return (n>=0?'+':'')+fmt(n,1)+'٪'; }
 function plClass(n){ return n>1e-6?'pos':(n<-1e-6?'neg':''); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// Reusable password field with a show/hide toggle — lets someone confirm they typed their
+// password correctly before submitting, instead of only finding out after a failed login.
+const EYE_ICON_SVG='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+const EYE_OFF_ICON_SVG='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0112 20c-7 0-11-8-11-8a20.3 20.3 0 015.06-6.06M9.9 4.24A10.4 10.4 0 0112 4c7 0 11 8 11 8a20.4 20.4 0 01-3.22 4.39M14.12 14.12a3 3 0 11-4.24-4.24"/><path d="M1 1l22 22"/></svg>';
+function passwordFieldHTML(id, label, placeholder, autocomplete){
+  return `<div class="field">
+    <label>${esc(label)}</label>
+    <div style="position:relative;">
+      <input id="${id}" type="password" placeholder="${esc(placeholder||'')}" ${autocomplete?`autocomplete="${autocomplete}"`:''} style="padding-left:36px;">
+      <button type="button" class="pw-toggle-btn" data-pw-toggle="${id}" title="نمایش/پنهان کردن رمز" tabindex="-1"
+        style="position:absolute; left:6px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:var(--ink-dim); padding:4px; display:flex;">${EYE_ICON_SVG}</button>
+    </div>
+  </div>`;
+}
+function wirePasswordToggle(inputId){
+  const btn=document.querySelector(`[data-pw-toggle="${inputId}"]`);
+  const input=document.getElementById(inputId);
+  if(!btn||!input) return;
+  btn.addEventListener('click', ()=>{
+    const showing = input.type==='text';
+    input.type = showing ? 'password' : 'text';
+    btn.innerHTML = showing ? EYE_ICON_SVG : EYE_OFF_ICON_SVG;
+  });
+}
 
 function div(a,b){ return Math.floor(a/b); }
 
@@ -536,6 +578,7 @@ async function loadAllFromApi(){
   CURRENT_USER = {id:me.id, username:me.username, displayName:me.displayName, role:me.role, allowedTabs:me.allowedTabs};
 
   PORTFOLIOS = await safeLoad(()=>apiFetch('/portfolios'), []);
+  CATEGORIES = await safeLoad(()=>apiFetch('/categories'), []);
 
   const [txnsByPortfolio, wdByPortfolio, laddersByPortfolio, snapByPortfolio] = await Promise.all([
     Promise.all(PORTFOLIOS.map(p=>safeLoad(()=>apiFetch(`/portfolios/${p.id}/transactions`), []))),
@@ -548,6 +591,7 @@ async function loadAllFromApi(){
   SNAPSHOTS = snapByPortfolio.flat();
   LADDERS = {};
   PORTFOLIOS.forEach((p,i)=>{ LADDERS[p.id]=laddersByPortfolio[i]; });
+  ACCOUNTS = await safeLoad(()=>apiFetch('/accounts'), []); // global — shared across every portfolio
 
   const priceRows = await safeLoad(()=>apiFetch('/prices'), {});
   PRICES={}; PRICES_UPDATED_AT={};
@@ -588,32 +632,40 @@ async function logout(){
 function updateUserBar(){
   const info=document.getElementById('userInfo');
   const btnLogout=document.getElementById('btnLogout');
+  const btnAlerts=document.getElementById('btnAlerts');
   const btnRestore=document.getElementById('btnRestoreTrigger');
-  const tabUsersBtn=document.getElementById('tabUsersBtn');
   const tabPortfoliosBtn=document.getElementById('tabPortfoliosBtn');
+  const tabManageBtn=document.querySelector('.tab[data-tab="manage"]');
   if(!CURRENT_USER){
     info.textContent=''; btnLogout.classList.add('hidden');
-    btnRestore.classList.add('hidden'); tabUsersBtn.classList.add('hidden');
+    btnAlerts.classList.add('hidden');
+    btnRestore.classList.add('hidden');
     if(tabPortfoliosBtn) tabPortfoliosBtn.classList.add('hidden');
+    if(tabManageBtn) tabManageBtn.classList.add('hidden');
     return;
   }
   const roleLabel = CURRENT_USER.role==='admin' ? 'مدیر' : 'کاربر عادی (فقط‌خواندنی)';
   info.textContent = `${CURRENT_USER.displayName} · ${roleLabel}`;
   btnLogout.classList.remove('hidden');
+  btnAlerts.classList.remove('hidden');
+  updateAlertsBadge();
   btnRestore.classList.add('hidden'); // local-file restore isn't supported with the API backend; data now lives on the server
-  tabUsersBtn.classList.toggle('hidden', !isAdmin());
   if(tabPortfoliosBtn) tabPortfoliosBtn.classList.toggle('hidden', !isAdmin());
-  // Show/hide each of the 6 configurable tab buttons per this user's allowed-tabs list.
+  // "مدیریت" (ثبت تراکنش + کتگوری‌ها + حساب‌ها + کاربران) is visible to admins always, and to
+  // a regular user only if they've been granted the "add" permission — categories/accounts/
+  // users stay admin-only inside it regardless (enforced again server-side, see require_admin).
+  if(tabManageBtn) tabManageBtn.classList.toggle('hidden', !isAdmin() && !isTabAllowedForCurrentUser('add'));
+  // Show/hide each of the other configurable tab buttons per this user's allowed-tabs list.
   // Admins always see all of them — nothing to restrict for a manager.
-  let anyAllowed=false;
+  let anyAllowed=isAdmin() || isTabAllowedForCurrentUser('add');
   TAB_KEYS_PERMISSIBLE.forEach(tk=>{
     const btn=document.querySelector(`.tab[data-tab="${tk}"]`);
-    if(!btn) return;
+    if(!btn) return; // 'add' has no standalone nav button anymore — handled above via tabManageBtn
     const allowed = isTabAllowedForCurrentUser(tk);
     btn.classList.toggle('hidden', !allowed);
     if(allowed) anyAllowed=true;
   });
-  if(!isAdmin() && ['tab-users','tab-portfolios'].some(id=>document.getElementById(id) && !document.getElementById(id).classList.contains('hidden'))){
+  if(!isAdmin() && !document.getElementById('tab-portfolios').classList.contains('hidden')){
     switchTab('dashboard');
   }
   // A user with literally zero allowed tabs can't rely on ".tab.active" detection to persist
@@ -623,7 +675,7 @@ function updateUserBar(){
   // state would flip-flop). Decide this directly from anyAllowed instead, and make it idempotent.
   if(!isAdmin() && !anyAllowed){
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    ['dashboard','add','holdings','sold','trend','ladders','users','portfolios'].forEach(n=>{
+    ['dashboard','manage','holdings','sold','trend','ladders','portfolios'].forEach(n=>{
       document.getElementById('tab-'+n).classList.add('hidden');
     });
     const main=document.querySelector('main') || document.getElementById('appShell');
@@ -631,7 +683,7 @@ function updateUserBar(){
       const notice=document.createElement('div');
       notice.className='card'; notice.id='noAccessNotice';
       notice.style.margin='20px auto'; notice.style.maxWidth='480px'; notice.style.textAlign='center';
-      notice.innerHTML='<p class="small-note" style="font-size:14px;">دسترسی شما به هیچ بخشی از سامانه فعال نیست. لطفاً با مدیر سامانه تماس بگیرید.</p>';
+      notice.innerHTML='<p class="small-note" style="font-size:16px;">دسترسی شما به هیچ بخشی از سامانه فعال نیست. لطفاً با مدیر سامانه تماس بگیرید.</p>';
       main.appendChild(notice);
     }
     return;
@@ -672,11 +724,12 @@ function renderFirstRunSetup(){
       <form id="setupForm">
         <div class="field"><label>نام نمایشی</label><input id="su_name" type="text" placeholder="مثلاً: الهه"></div>
         <div class="field"><label>نام کاربری</label><input id="su_user" type="text" placeholder="مثلاً: admin"></div>
-        <div class="field"><label>رمز عبور</label><input id="su_pass" type="password" placeholder="حداقل ۴ کاراکتر"></div>
+        ${passwordFieldHTML('su_pass','رمز عبور','حداقل ۴ کاراکتر')}
         <button class="btn btn-gold btn-block" type="submit">ایجاد حساب مدیر و ورود</button>
       </form>
       <p class="small-note" id="setupErr" style="color:var(--red);margin-top:10px;"></p>
     </div>`;
+  wirePasswordToggle('su_pass');
   document.getElementById('setupForm').addEventListener('submit', async e=>{
     e.preventDefault();
     const name=document.getElementById('su_name').value.trim();
@@ -701,11 +754,12 @@ function renderLoginForm(){
       <div class="card-head"><h3>ورود به دفتر دارایی</h3></div>
       <form id="loginForm">
         <div class="field"><label>نام کاربری</label><input id="li_user" type="text" autocomplete="username"></div>
-        <div class="field"><label>رمز عبور</label><input id="li_pass" type="password" autocomplete="current-password"></div>
+        ${passwordFieldHTML('li_pass','رمز عبور','','current-password')}
         <button class="btn btn-gold btn-block" type="submit">ورود</button>
       </form>
       <p class="small-note" id="loginErr" style="color:var(--red);margin-top:10px;"></p>
     </div>`;
+  wirePasswordToggle('li_pass');
   document.getElementById('loginForm').addEventListener('submit', async e=>{
     e.preventDefault();
     const username=document.getElementById('li_user').value.trim();
@@ -723,9 +777,17 @@ function renderLoginForm(){
 }
 
 /* ---------- domain logic ---------- */
-function knownCategories(){
-  const s=new Set(BASE_CATEGORIES);
-  TXNS.forEach(t=>{ if(t.category) s.add(t.category); });
+function categoryName(id){ const c=CATEGORIES.find(x=>x.id===id); return c? c.name : '—'; }
+function categoryIdByName(name){
+  const c=CATEGORIES.find(x=>x.name.toLowerCase()===String(name||'').trim().toLowerCase());
+  return c? c.id : null;
+}
+// Every category actually used across all loaded transactions/ladders, PLUS every managed
+// category — in practice these coincide (CATEGORIES is the full managed list), but this stays
+// safe even if a portfolio's LADDERS reference a category_id that's since been renamed/deleted.
+function knownCategoryIds(){
+  const s=new Set(CATEGORIES.map(c=>c.id));
+  TXNS.forEach(t=>{ if(t.categoryId) s.add(t.categoryId); });
   return Array.from(s);
 }
 function knownAssets(){
@@ -735,7 +797,27 @@ function lastInfoForAsset(name){
   const list=TXNS.filter(t=>t.asset===name).sort((a,b)=>jalaliSortKey(a.date)-jalaliSortKey(b.date));
   if(!list.length) return null;
   const last=list[list.length-1];
-  return {category:last.category, location:last.location};
+  return {categoryId:last.categoryId, location:last.location};
+}
+// Cash accounts for one portfolio, and the running balance already computed server-side.
+function allAccounts(){ return ACCOUNTS; }
+function accountName(id){ const a=ACCOUNTS.find(x=>x.id===id); return a? a.name : '—'; }
+// Mirrors business.py's txn_cash_impact()/cash_movement_impact() — how much one transaction
+// or one deposit/withdraw/transfer row moves an account's balance, signed.
+function txnCashImpact(t){
+  const fee=t.fee||0;
+  if(t.type==='buy') return -(t.amount+fee);
+  if(t.type==='sell') return t.amount-fee;
+  if(t.type==='dividend') return t.amount-fee;
+  return 0;
+}
+function movementCashImpact(m){
+  if(m.type==='deposit'||m.type==='transfer_in') return m.amount;
+  if(m.type==='withdraw'||m.type==='transfer_out') return -m.amount;
+  return 0;
+}
+function movementTypeLabel(type){
+  return {deposit:'واریز', withdraw:'برداشت', transfer_in:'انتقال ورودی', transfer_out:'انتقال خروجی'}[type] || type;
 }
 
 /* ---------- portfolios ---------- */
@@ -755,24 +837,29 @@ function computeHoldings(txns){
   const sorted=[...txns].sort((a,b)=> jalaliSortKey(a.date)-jalaliSortKey(b.date) || (a.ts-b.ts));
   for(const t of sorted){
     const name=t.asset;
-    if(!assets[name]) assets[name]={qty:0,avgCost:0,costBasis:0,realizedPL:0,dividend:0,category:t.category,location:t.location||'',firstBuy:null,lotInvested:0,lotReceived:0};
+    const fee=t.fee||0;
+    if(!assets[name]) assets[name]={qty:0,avgCost:0,costBasis:0,realizedPL:0,dividend:0,categoryId:t.categoryId,location:t.location||'',firstBuy:null,lotInvested:0,lotReceived:0};
     const a=assets[name];
-    if(t.category) a.category=t.category;
+    if(t.categoryId) a.categoryId=t.categoryId;
     if(t.location) a.location=t.location;
     if(t.type==='buy'){
+      // The fee is added straight into the cost basis (see business.py for the server-side
+      // equivalent) — a 100 unit buy with a 2 unit fee costs 102 from here on.
+      const buyTotal=t.amount+fee;
       if(a.qty<=1e-9){ a.firstBuy=t.date; a.lotInvested=0; a.lotReceived=0; }
-      a.costBasis += t.amount;
+      a.costBasis += buyTotal;
       a.qty += t.qty;
       a.avgCost = a.qty>1e-9 ? a.costBasis/a.qty : 0;
-      a.lotInvested += t.amount;
+      a.lotInvested += buyTotal;
     } else if(t.type==='sell'){
       // Defensive clamp only: real prevention of overselling happens at data-entry time
       // (see validateSellQty). If it ever happens anyway (e.g. legacy data), we still
       // avoid negative holdings, but we no longer let it fabricate phantom realized profit
       // beyond what the owned quantity could have produced.
+      const sellNet=t.amount-fee; // what actually lands back in cash after the fee
       const sellQty=Math.min(t.qty, a.qty);
       const proportionalCost=sellQty*a.avgCost;
-      const proportionalProceeds = t.qty>1e-9 ? t.amount*(sellQty/t.qty) : 0;
+      const proportionalProceeds = t.qty>1e-9 ? sellNet*(sellQty/t.qty) : 0;
       a.realizedPL += proportionalProceeds - proportionalCost;
       a.lotReceived += proportionalProceeds;
       a.qty -= sellQty;
@@ -780,7 +867,7 @@ function computeHoldings(txns){
       a.costBasis = a.qty*a.avgCost;
       if(a.qty===0){
         const rec={
-          asset:name, category:a.category,
+          asset:name, categoryId:a.categoryId,
           profit: a.realizedPL + a.dividend,
           firstBuy: a.firstBuy, lastSell: t.date,
           invested: a.lotInvested, received: a.lotReceived
@@ -790,14 +877,15 @@ function computeHoldings(txns){
         a.avgCost=0; a.realizedPL=0; a.dividend=0; a.firstBuy=null; a.lotInvested=0; a.lotReceived=0;
       }
     } else if(t.type==='dividend'){
+      const divNet=t.amount-fee;
       if(a.qty>1e-9){
-        a.dividend += t.amount;
+        a.dividend += divNet;
       } else {
         // No open position for this asset right now — this is a dividend paid out after the
         // holding was fully closed. Attribute it to that closed lot instead of letting it
         // silently vanish (or worse, bleed into a future re-purchase of the same asset).
         const lc=lastClosedForAsset[name];
-        if(lc) lc.profit += t.amount;
+        if(lc) lc.profit += divNet;
       }
     }
   }
@@ -814,7 +902,7 @@ function computeHoldings(txns){
       const unrealized = hasPrice ? value-a.costBasis : 0;
       const unrealizedPct = hasPrice && a.costBasis>1e-6 ? unrealized/a.costBasis*100 : 0;
       const realized = a.realizedPL + a.dividend;
-      holdings.push({name,category:a.category,location:a.location,qty:a.qty,avgCost:a.avgCost,
+      holdings.push({name,categoryId:a.categoryId,location:a.location,qty:a.qty,avgCost:a.avgCost,
         costBasis:a.costBasis,price,hasPrice,value,unrealized,unrealizedPct,realized,totalPL:unrealized+realized,firstBuy:a.firstBuy});
     }
   }
@@ -896,31 +984,34 @@ function computeAssetTxnRealized(name, pid){
   const sorted=TXNS.filter(t=>t.asset===name && t.portfolioId===pid).sort((a,b)=>jalaliSortKey(a.date)-jalaliSortKey(b.date)||(a.ts-b.ts));
   let qty=0, avgCost=0, costBasis=0, lastClosedTxnId=null;
   for(const t of sorted){
+    const fee=t.fee||0;
     if(t.type==='buy'){
-      costBasis += t.amount;
+      costBasis += t.amount+fee;
       qty += t.qty;
       avgCost = qty>1e-9 ? costBasis/qty : 0;
       lastClosedTxnId=null;
     } else if(t.type==='sell'){
+      const sellNet=t.amount-fee;
       const sellQty=Math.min(t.qty, qty);
       const proportionalCost=sellQty*avgCost;
-      const proportionalProceeds = t.qty>1e-9 ? t.amount*(sellQty/t.qty) : 0;
+      const proportionalProceeds = t.qty>1e-9 ? sellNet*(sellQty/t.qty) : 0;
       result[t.id]=proportionalProceeds-proportionalCost;
       qty -= sellQty;
       if(qty<1e-6) qty=0;
       costBasis = qty*avgCost;
       if(qty===0){ avgCost=0; lastClosedTxnId=t.id; } else { lastClosedTxnId=null; }
     } else if(t.type==='dividend'){
+      const divNet=t.amount-fee;
       if(qty>1e-9){
-        result[t.id]=t.amount;
+        result[t.id]=divNet;
       } else if(lastClosedTxnId){
         // Dividend paid after the position was already fully closed — attribute it to the
         // sell that closed it (same rule computeHoldings uses for the closed-lot's profit)
         // rather than letting it float unattached or bleed into a future re-purchase.
-        result[lastClosedTxnId] = (result[lastClosedTxnId]||0) + t.amount;
+        result[lastClosedTxnId] = (result[lastClosedTxnId]||0) + divNet;
         result[t.id]=0;
       } else {
-        result[t.id]=t.amount;
+        result[t.id]=divNet;
       }
     }
   }
@@ -932,7 +1023,7 @@ function categoryAgg(holdings, closed){
   const agg={};
   function ensure(cat){ if(!agg[cat]) agg[cat]={investment:0,value:0,unrealized:0,realized:0}; return agg[cat]; }
   holdings.forEach(h=>{
-    const c=ensure(h.category);
+    const c=ensure(h.categoryId);
     c.investment += h.costBasis;
     c.value += h.value;
     c.unrealized += h.unrealized;
@@ -940,7 +1031,7 @@ function categoryAgg(holdings, closed){
   });
   // Realized profit from positions that were fully closed in the past belongs to the category too —
   // otherwise a category you've completely exited would show none of its historical gains.
-  closed.forEach(c=>{ ensure(c.category).realized += c.profit; });
+  closed.forEach(c=>{ ensure(c.categoryId).realized += c.profit; });
   Object.values(agg).forEach(c=>{
     c.overall = c.unrealized + c.realized;
     c.profit = c.unrealized; // kept for the profit-ladder tab, which plans withdrawals off unrealized gains
@@ -1034,11 +1125,11 @@ function buildCompositionSegments(holdings, closed, filterCat){
     const totalValue=Object.values(agg).reduce((s,a)=>s+a.value,0);
     const cats=Object.keys(agg).filter(c=>agg[c].value>1e-6).sort((a,b)=>agg[b].value-agg[a].value);
     return finalize(cats.map((c,i)=>({
-      label:c, value:agg[c].value, investment:agg[c].investment, unrealized:agg[c].unrealized, realized:agg[c].realized,
+      label:categoryName(c), value:agg[c].value, investment:agg[c].investment, unrealized:agg[c].unrealized, realized:agg[c].realized,
       pct: totalValue>1e-6? agg[c].value/totalValue*100:0, color:PALETTE[i%PALETTE.length]
     })));
   }
-  const inCat=holdings.filter(h=>h.category===filterCat);
+  const inCat=holdings.filter(h=>h.categoryId===filterCat);
   const totalValue=inCat.reduce((s,h)=>s+h.value,0);
   return finalize(inCat.sort((a,b)=>b.value-a.value).map((h,i)=>({
     label:h.name, value:h.value, investment:h.costBasis, unrealized:h.unrealized, realized:h.realized,
@@ -1046,11 +1137,19 @@ function buildCompositionSegments(holdings, closed, filterCat){
   })));
 }
 function renderCompositionCard(holdings, closed){
-  const allCats=Array.from(new Set(holdings.map(h=>h.category))).sort();
+  const allCats=Array.from(new Set(holdings.map(h=>h.categoryId))).sort();
   if(!allCats.includes(dashboardFilter) && dashboardFilter!=='__all__') dashboardFilter='__all__';
-  const segments=buildCompositionSegments(holdings, closed, dashboardFilter);
+  let segments=buildCompositionSegments(holdings, closed, dashboardFilter);
   const totalValue=segments.reduce((s,x)=>s+x.value,0);
-  const centerLabel = dashboardFilter==='__all__' ? 'کل پرتفو' : esc(dashboardFilter);
+  const centerLabel = dashboardFilter==='__all__' ? 'کل پرتفو' : esc(categoryName(dashboardFilter));
+
+  if(compositionSort.key){
+    const k=compositionSort.key, dir=compositionSort.dir;
+    segments=[...segments].sort((a,b)=>{
+      if(k==='label') return dir*String(a.label).localeCompare(String(b.label),'fa');
+      return dir*((a[k]||0)-(b[k]||0));
+    });
+  }
 
   const rows = segments.map(seg=>`<tr>
     <td><span class="legend-dot" style="background:${seg.color}"></span></td>
@@ -1060,38 +1159,82 @@ function renderCompositionCard(holdings, closed){
     <td class="num ${plClass(seg.unrealized)}">${fmt(seg.unrealized)}<br><span class="muted">${fmtPct(seg.unrealizedPct)}</span></td>
     <td class="num ${plClass(seg.realized)}">${fmt(seg.realized)}<br><span class="muted">${fmtPct(seg.realizedPct)}</span></td>
     <td class="num ${plClass(seg.overall)}">${fmt(seg.overall)}<br><span class="muted">${fmtPct(seg.overallPct)}</span></td>
-    <td class="share-cell"><span class="num" style="font-size:11.5px;">${fmt(seg.pct,1)}٪</span><div class="share-track"><div class="share-fill" style="width:${Math.min(100,Math.max(0,seg.pct))}%; background:${seg.color};"></div></div></td>
+    <td class="share-cell"><span class="num" style="font-size:13px;">${fmt(seg.pct,1)}٪</span><div class="share-track"><div class="share-fill" style="width:${Math.min(100,Math.max(0,seg.pct))}%; background:${seg.color};"></div></div></td>
   </tr>`).join('');
 
-  const chipbar = `<div class="chipbar">
-    <button type="button" class="chip ${dashboardFilter==='__all__'?'active':''}" data-cat-chip="__all__">همه</button>
-    ${allCats.map(c=>`<button type="button" class="chip ${dashboardFilter===c?'active':''}" data-cat-chip="${esc(c)}">${esc(c)}</button>`).join('')}
+  // Two select filters (category drill-down + portfolio scope), always side-by-side on one
+  // line — this is the ONLY portfolio filter on the dashboard now (a second one used to sit
+  // above this card too; that was redundant, so it's gone and this is the single source of truth).
+  const filterBar = `<div style="display:flex; gap:8px; align-items:center;">
+    <select id="compositionCatFilter" style="flex:1; min-width:0;">
+      <option value="__all__" ${dashboardFilter==='__all__'?'selected':''}>همه کتگوری‌ها</option>
+      ${allCats.map(c=>`<option value="${esc(c)}" ${dashboardFilter===c?'selected':''}>${esc(categoryName(c))}</option>`).join('')}
+    </select>
+    ${PORTFOLIOS.length>1?`<select id="compositionPidFilter" style="flex:1; min-width:0;">
+      <option value="__all__" ${dashboardPidFilter==='__all__'?'selected':''}>همه سبدها</option>
+      ${PORTFOLIOS.map(p=>`<option value="${p.id}" ${p.id===dashboardPidFilter?'selected':''}>${esc(p.name)}</option>`).join('')}
+    </select>`:''}
   </div>`;
+
+  function th(label, key, extraStyle){
+    const active = compositionSort.key===key;
+    const arrow = active ? (compositionSort.dir===1?' ▲':' ▼') : '';
+    return `<th class="sortable-th" data-sort-key="${key}" style="cursor:pointer;user-select:none;${extraStyle||''}" title="برای مرتب‌سازی کلیک کنید">${label}${arrow}</th>`;
+  }
 
   return `
     <div class="card">
       <div class="card-head">
         <h3>ترکیب پرتفو</h3>
-        ${allCats.length? chipbar : ''}
+        ${allCats.length? filterBar : ''}
       </div>
       ${segments.length? `
       <div style="display:flex; gap:28px; flex-wrap:wrap; align-items:center;">
         <div style="position:relative; width:186px; height:186px; flex-shrink:0;" id="donutWrap" data-segments='${JSON.stringify(segments).replace(/'/g,'&#39;')}'>
           ${renderDonutSVG(segments, 186, 25)}
           <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; pointer-events:none;">
-            <div class="muted" style="font-size:10.5px;">${centerLabel}</div>
-            <div class="num" style="font-size:15px; font-weight:750;">${fmt(totalValue)}</div>
-            <div class="muted" style="font-size:9.5px; margin-top:1px;">تومان</div>
+            <div class="muted" style="font-size:12px;">${centerLabel}</div>
+            <div class="num" style="font-size:17px; font-weight:750;">${fmt(totalValue)}</div>
+            <div class="muted" style="font-size:11px; margin-top:1px;">تومان</div>
           </div>
         </div>
         <div style="flex:1; min-width:340px;">
           <div class="table-wrap"><table><thead><tr>
-            <th></th><th>${dashboardFilter==='__all__'?'کتگوری':'دارایی'}</th><th>سرمایه‌گذاری</th><th>ارزش روز</th><th>سود/زیان فعلی</th><th>سود/زیان تحقق‌یافته</th><th>سود/زیان کلی</th><th>سهم از پرتفو</th>
+            <th></th>${th(dashboardFilter==='__all__'?'کتگوری':'دارایی','label')}${th('سرمایه‌گذاری','investment')}${th('ارزش روز','value')}${th('سود/زیان فعلی','unrealized')}${th('سود/زیان تحقق‌یافته','realized')}${th('سود/زیان کلی','overall')}${th('سهم از پرتفو','pct')}
           </tr></thead><tbody>${rows}</tbody></table></div>
         </div>
       </div>` : `<div class="empty">${dashboardFilter==='__all__'? 'هنوز دارایی فعالی ثبت نشده. از تب «ثبت تراکنش» شروع کنید.' : 'دارایی فعالی در این کتگوری نیست.'}</div>`}
     </div>
     <div id="donutTooltip" class="donut-tooltip hidden"></div>`;
+}
+// Same segments/filter as the composition card above (category drill-down + portfolio scope
+// stay in sync automatically since both read dashboardFilter/dashboardPidFilter) — but shown
+// as profit/loss bars instead of value-share, which is information the donut+table don't
+// make easy to compare at a glance (who's up, who's down, and by how much relative to the rest).
+function renderBarChartCard(holdings, closed){
+  const segments=buildCompositionSegments(holdings, closed, dashboardFilter)
+    .sort((a,b)=>b.unrealized-a.unrealized);
+  if(!segments.length) return '';
+  const maxAbs = Math.max(1, ...segments.map(s=>Math.abs(s.unrealized)));
+  const title = dashboardFilter==='__all__' ? 'سود/زیان فعلی هر کتگوری' : `سود/زیان فعلی دارایی‌های «${esc(categoryName(dashboardFilter))}»`;
+
+  const rows = segments.map(s=>{
+    const pctOfMax = Math.min(100, Math.abs(s.unrealized)/maxAbs*100);
+    const isPos = s.unrealized>=1e-6, isNeg = s.unrealized<=-1e-6;
+    const barColor = isPos ? 'var(--green)' : (isNeg ? 'var(--red)' : 'var(--border)');
+    return `<div style="display:flex; align-items:center; gap:10px; margin-bottom:9px;">
+      <div style="width:110px; flex-shrink:0; font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${esc(s.label)}">${esc(s.label)}</div>
+      <div style="flex:1; background:var(--surface-2); border-radius:5px; height:16px; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; bottom:0; ${isNeg?'right':'left'}:0; width:${pctOfMax}%; background:${barColor}; border-radius:5px;"></div>
+      </div>
+      <div class="num ${plClass(s.unrealized)}" style="width:100px; flex-shrink:0; text-align:left; font-size:13px;">${fmt(s.unrealized)}</div>
+    </div>`;
+  }).join('');
+
+  return `<div class="card" style="margin-top:14px;">
+    <div class="card-head"><h3>${title}</h3></div>
+    ${rows}
+  </div>`;
 }
 function wireDonutTooltip(){
   const wrap=document.getElementById('donutWrap');
@@ -1164,7 +1307,7 @@ function computeDashboardAlerts(pid){
       const levels = levelsMap[cat] || DEFAULT_LADDERS['سایر'];
       levels.forEach((lv,idx)=>{
         if(a.profitPct < lv.t) return;
-        const secured = WITHDRAWALS.some(w=>w.portfolioId===pid && w.category===cat && w.level===idx);
+        const secured = WITHDRAWALS.some(w=>w.portfolioId===pid && w.categoryId===cat && w.level===idx);
         if(!secured) readyToSecure.push({cat, idx, t:lv.t, portfolioId:pid, portfolioName:portfolioName(pid)});
       });
     });
@@ -1172,8 +1315,10 @@ function computeDashboardAlerts(pid){
   return {missingPrice, readyToSecure};
 }
 function renderAlertsCard(missingPrice, readyToSecure){
-  if(!missingPrice.length && !readyToSecure.length) return '';
-  const showPortfolioTag = PORTFOLIOS.length>1 && dashboardPidFilter==='__all__';
+  if(!missingPrice.length && !readyToSecure.length){
+    return `<div class="empty">در حال حاضر هشداری وجود ندارد — همه‌ی قیمت‌های روز ثبت شده‌اند و پله‌ی سود آماده‌ای برای سیو کردن نیست.</div>`;
+  }
+  const showPortfolioTag = PORTFOLIOS.length>1;
   const priceRow = missingPrice.length ? `
     <div class="alert-item">
       <div class="alert-icon" style="width:32px;height:32px;border-radius:9px;background:var(--gold-glow);color:var(--gold-soft);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.8L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.8a2 2 0 00-3.4 0z"/></svg></div>
@@ -1190,7 +1335,7 @@ function renderAlertsCard(missingPrice, readyToSecure){
       <div class="alert-icon" style="width:32px;height:32px;border-radius:9px;background:var(--green-bg);color:var(--green);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></div>
       <div style="flex:1;">
         <div>${readyToSecure.length} پله سود به آستانه رسیده و هنوز سیو نشده:</div>
-        <div class="muted" style="margin-top:2px;">${shown.map(r=>`${esc(r.cat)} (${r.t}٪)${showPortfolioTag?' — '+esc(r.portfolioName):''}`).join('، ')}${extra>0?` و ${extra} مورد دیگر`:''}</div>
+        <div class="muted" style="margin-top:2px;">${shown.map(r=>`${esc(categoryName(r.cat))} (${r.t}٪)${showPortfolioTag?' — '+esc(r.portfolioName):''}`).join('، ')}${extra>0?` و ${extra} مورد دیگر`:''}</div>
       </div>
       <button class="btn btn-xs" data-goto="ladders">مشاهده پله‌های سود</button>
     </div>` : '';
@@ -1198,6 +1343,37 @@ function renderAlertsCard(missingPrice, readyToSecure){
     <div class="card-head"><h3>هشدارها</h3></div>
     ${priceRow}${secureRow}
   </div>`;
+}
+// The bell badge always covers every portfolio (not just whatever the Dashboard tab's own
+// filter happens to be set to right now) — it's a global "is anything waiting for you"
+// signal, shown next to logout regardless of which tab is open.
+let LATEST_ALERTS={missingPrice:[], readyToSecure:[]};
+function updateAlertsBadge(){
+  const badge=document.getElementById('alertsBadge');
+  if(!badge || !CURRENT_USER) return;
+  LATEST_ALERTS = computeDashboardAlerts('__all__');
+  const count = LATEST_ALERTS.missingPrice.length + LATEST_ALERTS.readyToSecure.length;
+  badge.textContent = count>99 ? '99+' : String(count);
+  badge.classList.toggle('hidden', count===0);
+}
+function openAlertsModal(){
+  LATEST_ALERTS = computeDashboardAlerts('__all__');
+  document.getElementById('alertsModalBox').innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <h3 style="margin:0;">هشدارها</h3>
+      <button type="button" class="modal-close" id="alertsModalClose">✕</button>
+    </div>
+    ${renderAlertsCard(LATEST_ALERTS.missingPrice, LATEST_ALERTS.readyToSecure)}
+  `;
+  document.getElementById('alertsModal').classList.remove('hidden');
+  document.getElementById('alertsModalClose').addEventListener('click', closeAlertsModal);
+  document.querySelectorAll('#alertsModalBox [data-goto]').forEach(btn=>{
+    btn.addEventListener('click', closeAlertsModal); // let the normal data-goto delegator switch tabs; just close the popup first
+  });
+}
+function closeAlertsModal(){
+  document.getElementById('alertsModal').classList.add('hidden');
+  document.getElementById('alertsModalBox').innerHTML='';
 }
 function computeConcentration(holdings){
   const totalValue = holdings.reduce((s,h)=>s+h.value,0);
@@ -1301,20 +1477,12 @@ function renderDashboard(){
     if(!topLoss || h.unrealizedPct<topLoss.unrealizedPct) topLoss=h;
   });
   const {missingPrice, readyToSecure} = computeDashboardAlerts(dashboardPidFilter);
+  updateAlertsBadge(); // the bell badge always reflects ALL portfolios, independent of this tab's own filter
   const conc = computeConcentration(holdings);
 
-  // Only takes up room when there's actually something to filter — with a single portfolio
-  // this whole bar (and the "داشبورد" title, already shown by the tab itself) is skipped.
-  const filterBar = PORTFOLIOS.length>1 ? `
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:8px; flex-wrap:wrap;">
-      <span class="muted" style="font-size:12px;">${dashboardPidFilter==='__all__' ? 'نمای کلی همه سبدها' : 'سبد «'+esc(portfolioName(dashboardPidFilter))+'»'}</span>
-      ${portfolioFilterSelect('dashboardPortfolioFilter', dashboardPidFilter)}
-    </div>` : '';
-
   document.getElementById('tab-dashboard').innerHTML = `
-    ${filterBar}
-    ${renderAlertsCard(missingPrice, readyToSecure)}
     ${renderCompositionCard(holdings, closed)}
+    ${renderBarChartCard(holdings, closed)}
     <div class="card mini-stats-row" style="margin-top:14px;">
       <div class="stat-tile">
         <div class="tile-ico ok"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 17l6-6 4 4 6-7"/><path d="M14 8h6v6"/></svg></div>
@@ -1340,20 +1508,29 @@ function renderDashboard(){
     </div>
     ${renderMiniTrendCard(dashboardPidFilter)}
   `;
-  document.querySelectorAll('[data-cat-chip]').forEach(chip=>{
-    chip.addEventListener('click', ()=>{
-      dashboardFilter=chip.dataset.catChip;
-      renderDashboard();
-    });
-  });
-  const dashPfFilterSel=document.getElementById('dashboardPortfolioFilter');
-  if(dashPfFilterSel){
-    dashPfFilterSel.addEventListener('change', ()=>{
-      dashboardPidFilter=dashPfFilterSel.value;
-      dashboardFilter='__all__'; // reset the category filter too — its option list is scoped to the now-different holdings set
+  const compCatSel=document.getElementById('compositionCatFilter');
+  if(compCatSel){
+    compCatSel.addEventListener('change', ()=>{
+      dashboardFilter=compCatSel.value;
       renderDashboard();
     });
   }
+  const compPidSel=document.getElementById('compositionPidFilter');
+  if(compPidSel){
+    compPidSel.addEventListener('change', ()=>{
+      dashboardPidFilter=compPidSel.value;
+      dashboardFilter='__all__'; // reset the category drill-down too — its option list is scoped to the now-different holdings set
+      renderDashboard();
+    });
+  }
+  document.querySelectorAll('.sortable-th').forEach(th=>{
+    th.addEventListener('click', ()=>{
+      const key=th.dataset.sortKey;
+      if(compositionSort.key===key) compositionSort.dir*=-1;
+      else compositionSort={key, dir:-1}; // first click on a numeric column shows biggest first
+      renderDashboard();
+    });
+  });
   wireDonutTooltip();
 }
 function typeBadge(type){
@@ -1361,11 +1538,13 @@ function typeBadge(type){
   if(type==='sell') return `<span class="badge badge-sell">فروش</span>`;
   return `<span class="badge badge-div">سود نقدی</span>`;
 }
+function typeBadgeText(type){
+  return {buy:'خرید', sell:'فروش', dividend:'سود نقدی'}[type] || type;
+}
 
 /* ---------- Add transaction tab ---------- */
 function renderAddTab(){
-  const cats=knownCategories(), assets=knownAssets();
-  document.getElementById('categoryList').innerHTML = cats.map(c=>`<option value="${esc(c)}"></option>`).join('');
+  const assets=knownAssets();
   document.getElementById('assetList').innerHTML = assets.map(a=>`<option value="${esc(a)}"></option>`).join('');
 
   if(!PORTFOLIOS.length){
@@ -1427,26 +1606,38 @@ function renderAddTab(){
         ${PORTFOLIOS.length>1 ? `<div class="field"><label>سبد</label><select id="f_portfolio">${PORTFOLIOS.map(p=>`<option value="${p.id}" ${p.id===pid?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div>` : `<input type="hidden" id="f_portfolio" value="${pid}">`}
         <div class="field-row">
           <div class="field"><label>نوع تراکنش</label>
-            <select id="f_type" required>
+            <select id="f_type">
               <option value="buy">خرید</option>
               <option value="sell">فروش</option>
               <option value="dividend">سود نقدی / مجمع</option>
             </select>
           </div>
-          <div class="field"><label>تاریخ (مثل 1405/04/01)</label><div style="display:flex;gap:6px;"><input id="f_date" type="text" value="${todayJalali()}" placeholder="1405/04/01" required><input id="f_date_picker" class="date-picker-inline" type="date" title="انتخاب از تقویم"></div></div>
+          <div class="field"><label>تاریخ (مثل 1405/04/01)</label><input id="f_date" type="text" value="${todayJalali()}" placeholder="1405/04/01"></div>
         </div>
         <div class="field-row">
-          <div class="field"><label>نام دارایی</label><input id="f_asset" type="text" list="assetList" placeholder="مثلاً: فملی" required autocomplete="off"></div>
-          <div class="field"><label>کتگوری</label><input id="f_category" type="text" list="categoryList" placeholder="بورس / طلا / کریپتو ..." required autocomplete="off"></div>
+          <div class="field"><label>نام دارایی</label><input id="f_asset" type="text" list="assetList" placeholder="مثلاً: فملی"></div>
+          <div class="field"><label>کتگوری</label>
+            <select id="f_category">${CATEGORIES.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('')}</select>
+          </div>
         </div>
         <div class="field-row" id="qtyPriceRow">
-          <div class="field"><label>تعداد / مقدار</label><input id="f_qty" type="text" inputmode="decimal" placeholder="0" required autocomplete="off"></div>
-          <div class="field"><label>قیمت واحد</label><input id="f_price" type="text" inputmode="decimal" placeholder="0" required autocomplete="off"></div>
+          <div class="field"><label>تعداد / مقدار</label><input id="f_qty" type="text" inputmode="decimal" placeholder="0"></div>
+          <div class="field"><label>قیمت واحد</label><input id="f_price" type="text" inputmode="decimal" placeholder="0"></div>
         </div>
-        <div class="field"><label id="amountLabel">مبلغ کل (تومان)</label><input id="f_amount" type="text" inputmode="decimal" placeholder="0" required autocomplete="off"></div>
         <div class="field-row">
-          <div class="field"><label>محل خرید / پلتفرم</label><input id="f_location" type="text" list="locationList" placeholder="مفید، کیف پول، ..." required autocomplete="off"></div>
-          <div class="field"><label>توضیحات</label><input id="f_note" type="text" required autocomplete="off"></div>
+          <div class="field"><label id="amountLabel">مبلغ کل (تومان)</label><input id="f_amount" type="text" inputmode="decimal" placeholder="0"></div>
+          <div class="field"><label>کارمزد (تومان، اختیاری)</label><input id="f_fee" type="text" inputmode="decimal" placeholder="0"></div>
+        </div>
+        <div class="field">
+          <label>حساب نقدی (اختیاری — اگر انتخاب شود، موجودی آن حساب هم به‌روز می‌شود)</label>
+          <select id="f_account">
+            <option value="">— بدون ثبت روی حساب نقدی —</option>
+            ${allAccounts().map(a=>`<option value="${esc(a.id)}">${esc(a.name)} (موجودی: ${fmt(a.balance)})</option>`).join('')}
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>محل خرید / پلتفرم</label><input id="f_location" type="text" list="locationList" placeholder="مفید، کیف پول، ..."></div>
+          <div class="field"><label>توضیحات (اختیاری)</label><input id="f_note" type="text"></div>
         </div>
         <button class="btn btn-gold btn-block" type="submit" id="btnSubmitTxn">ثبت تراکنش</button>
       </form>
@@ -1476,7 +1667,6 @@ function bindAddForm(){
   const amountLabel=document.getElementById('amountLabel');
   const qtyEl=document.getElementById('f_qty'), priceEl=document.getElementById('f_price'), amountEl=document.getElementById('f_amount');
   const assetEl=document.getElementById('f_asset'), catEl=document.getElementById('f_category'), locEl=document.getElementById('f_location');
-  const dateEl=document.getElementById('f_date'), datePicker=document.getElementById('f_date_picker');
   const portfolioSelEl=document.getElementById('f_portfolio');
   if(portfolioSelEl && portfolioSelEl.tagName==='SELECT'){
     portfolioSelEl.addEventListener('change', ()=>{
@@ -1493,51 +1683,29 @@ function bindAddForm(){
   typeEl.addEventListener('change', syncTypeUI);
   syncTypeUI();
 
-  if(datePicker) datePicker.addEventListener('change', ()=>{
-    if(!datePicker.value) return;
-    const [y,m,d]=datePicker.value.split('-').map(Number);
-    dateEl.value=gregorianToJalali(y,m,d).map((v,i)=>String(v).padStart(i?2:4,'0')).join('/');
-    dateEl.dispatchEvent(new Event('input'));
-  });
-
-  function recalcAmount(){
-    const qty=num(qtyEl.value), price=num(priceEl.value);
-    if(qty>0 && price>0) amountEl.value=fmt(qty*price);
-  }
-  function recalcPrice(){
-    const qty=num(qtyEl.value), amount=num(amountEl.value);
-    if(qty>0 && amount>0) priceEl.value=fmt(amount/qty);
-  }
-  qtyEl.addEventListener('input', ()=>{
-    // If the user entered the total first, keep it and derive the unit price.
-    if(num(amountEl.value)>0 && num(priceEl.value)<=0) recalcPrice();
-    else recalcAmount();
-  });
+  function recalcAmount(){ amountEl.value = num(qtyEl.value)*num(priceEl.value) ? fmt(num(qtyEl.value)*num(priceEl.value)) : ''; }
+  qtyEl.addEventListener('input', recalcAmount);
   priceEl.addEventListener('input', recalcAmount);
-  amountEl.addEventListener('input', recalcPrice);
 
   assetEl.addEventListener('change', ()=>{
     const info=lastInfoForAsset(assetEl.value.trim());
-    if(info){ if(!catEl.value) catEl.value=info.category||''; if(!locEl.value) locEl.value=info.location||''; }
+    if(info){ if(info.categoryId) catEl.value=info.categoryId; if(!locEl.value) locEl.value=info.location||''; }
   });
 
   document.getElementById('btnCancelEdit').addEventListener('click', ()=>{ editingTxnId=null; renderAddTab(); });
 
   document.getElementById('txnForm').addEventListener('submit', async e=>{
     e.preventDefault();
-    const requiredFields=[...document.querySelectorAll('#txnForm input[required],#txnForm select[required]')]
-      .filter(el=>!el.closest('.hidden') && !el.value.trim());
-    document.querySelectorAll('#txnForm .field').forEach(f=>f.classList.remove('invalid'));
-    requiredFields.forEach(el=>el.closest('.field')?.classList.add('invalid'));
-    if(requiredFields.length){ toast('لطفاً همه فیلدهای اجباری را کامل کنید.',true); requiredFields[0].focus(); return; }
     if(!requireAdmin('ثبت یا ویرایش تراکنش')) return;
     const type=typeEl.value;
-    const date=normalizeJalali(dateEl.value);
+    const date=normalizeJalali(document.getElementById('f_date').value);
     const asset=assetEl.value.trim();
-    const category=catEl.value.trim()||'سایر';
+    const categoryId=catEl.value;
     const qty= type==='dividend'?0:num(qtyEl.value);
     const price= type==='dividend'?0:num(priceEl.value);
     const amount=num(amountEl.value);
+    const fee=Math.max(0, num(document.getElementById('f_fee').value));
+    const accountId=document.getElementById('f_account').value || null;
     const location=locEl.value.trim();
     const note=document.getElementById('f_note').value.trim();
     const portfolioId=document.getElementById('f_portfolio').value;
@@ -1545,8 +1713,10 @@ function bindAddForm(){
     if(!portfolioId){ toast('سبد را انتخاب کنید.',true); return; }
     if(!date){ toast('فرمت تاریخ درست نیست یا وجود ندارد. مثل 1405/04/01 وارد کنید.',true); return; }
     if(!asset){ toast('نام دارایی را وارد کنید.',true); return; }
+    if(!categoryId){ toast('کتگوری را انتخاب کنید.',true); return; }
     if(type!=='dividend' && qty<=0){ toast('تعداد باید بزرگتر از صفر باشد.',true); return; }
     if(amount<=0){ toast('مبلغ باید بزرگتر از صفر باشد.',true); return; }
+    if(type==='sell' && fee>=amount){ toast('کارمزد نمی‌تواند برابر یا بیشتر از مبلغ فروش باشد.',true); return; }
 
     if(type==='sell'){
       const available=currentQtyForAsset(asset, editingTxnId, portfolioId);
@@ -1566,22 +1736,26 @@ function bindAddForm(){
       }
     }
 
-    const payload={type,date,asset,category,qty,price,amount,location,note};
+    const payload={type,date,asset,categoryId,accountId,qty,price,amount,fee,location,note};
     try{
       if(editingTxnId){
         const updated = await apiSave(`/transactions/${editingTxnId}`, {method:'PUT', body:payload});
         const t=TXNS.find(x=>x.id===editingTxnId);
-        Object.assign(t, {type:updated.type,date:updated.date,asset:updated.asset,category:updated.category,qty:updated.qty,price:updated.price,amount:updated.amount,location:updated.location,note:updated.note});
+        Object.assign(t, {type:updated.type,date:updated.date,asset:updated.asset,categoryId:updated.categoryId,accountId:updated.accountId,qty:updated.qty,price:updated.price,amount:updated.amount,fee:updated.fee,location:updated.location,note:updated.note});
         editingTxnId=null;
         toast('تراکنش ویرایش شد.');
       } else {
         const created = await apiSave(`/portfolios/${portfolioId}/transactions`, {method:'POST', body:payload});
-        TXNS.push({id:created.id, ts:created.ts, type:created.type, date:created.date, asset:created.asset, category:created.category, qty:created.qty, price:created.price, amount:created.amount, location:created.location, note:created.note, portfolioId:created.portfolioId});
+        TXNS.push({id:created.id, ts:created.ts, type:created.type, date:created.date, asset:created.asset, categoryId:created.categoryId, accountId:created.accountId, qty:created.qty, price:created.price, amount:created.amount, fee:created.fee, location:created.location, note:created.note, portfolioId:created.portfolioId});
         toast('تراکنش ثبت شد.');
       }
+      await refreshAccounts(); // fee/account may have changed this account's balance
       renderAll();
     }catch(err){ toast(err.message, true); }
   });
+}
+async function refreshAccounts(){
+  ACCOUNTS = await safeLoad(()=>apiFetch('/accounts'), ACCOUNTS);
 }
 
 // Always scoped to the portfolio the «ثبت تراکنش» tab is currently showing — this log sits
@@ -1590,21 +1764,23 @@ function bindAddForm(){
 function renderTxnLog(filter){
   filter=(filter||'').trim().toLowerCase();
   const list=[...txnsForPortfolio(addTabPortfolioId)].sort((a,b)=>jalaliSortKey(b.date)-jalaliSortKey(a.date)||(b.ts-a.ts))
-    .filter(t=> !filter || t.asset.toLowerCase().includes(filter) || (t.category||'').toLowerCase().includes(filter) || (t.note||'').toLowerCase().includes(filter));
+    .filter(t=> !filter || t.asset.toLowerCase().includes(filter) || categoryName(t.categoryId).toLowerCase().includes(filter) || (t.note||'').toLowerCase().includes(filter));
   const wrap=document.getElementById('txnLogWrap');
   if(!list.length){ wrap.innerHTML=`<div class="empty">تراکنشی پیدا نشد.</div>`; return; }
   const admin=isAdmin();
   wrap.innerHTML = `<div class="table-wrap"><table><thead><tr>
-    <th>تاریخ</th><th>نوع</th><th>دارایی</th><th>کتگوری</th><th>تعداد</th><th>قیمت واحد</th><th>مبلغ</th><th>محل</th>${admin?'<th>عملیات</th>':''}
+    <th>تاریخ</th><th>نوع</th><th>دارایی</th><th>کتگوری</th><th>تعداد</th><th>قیمت واحد</th><th>مبلغ</th><th>کارمزد</th><th>حساب</th><th>محل</th>${admin?'<th>عملیات</th>':''}
   </tr></thead><tbody>
   ${list.map(t=>`<tr>
     <td class="num">${t.date}</td>
     <td>${typeBadge(t.type)}</td>
     <td>${esc(t.asset)}</td>
-    <td><span class="badge badge-cat">${esc(t.category)}</span></td>
+    <td><span class="badge badge-cat">${esc(categoryName(t.categoryId))}</span></td>
     <td class="num">${t.type==='dividend'?'—':fmt(t.qty,4)}</td>
     <td class="num">${t.type==='dividend'?'—':fmt(t.price)}</td>
     <td class="num">${fmt(t.amount)}</td>
+    <td class="num">${t.fee?fmt(t.fee):'—'}</td>
+    <td>${t.accountId?esc(accountName(t.accountId)):'—'}</td>
     <td>${esc(t.location||'—')}</td>
     ${admin?`<td><div class="row-actions">
       <button class="btn btn-xs" data-edit-txn="${t.id}">ویرایش</button>
@@ -1629,10 +1805,12 @@ function editTxn(id){
   document.getElementById('f_type').dispatchEvent(new Event('change'));
   document.getElementById('f_date').value=t.date;
   document.getElementById('f_asset').value=t.asset;
-  document.getElementById('f_category').value=t.category;
+  document.getElementById('f_category').value=t.categoryId;
   document.getElementById('f_qty').value= t.qty? fmt(t.qty,4):'';
   document.getElementById('f_price').value= t.price? fmt(t.price):'';
   document.getElementById('f_amount').value= fmt(t.amount);
+  document.getElementById('f_fee').value= t.fee? fmt(t.fee):'';
+  document.getElementById('f_account').value= t.accountId||'';
   document.getElementById('f_location').value=t.location||'';
   document.getElementById('f_note').value=t.note||'';
   document.getElementById('txnForm').scrollIntoView({behavior:'smooth',block:'start'});
@@ -1696,14 +1874,14 @@ function renderHoldings(){
       const mainRow = `<tr data-asset-row="${esc(rowKey)}">
         <td><button type="button" class="expand-toggle ${isOpen?'open':''}" data-toggle-holding="${esc(rowKey)}" title="نمایش تراکنش‌های این دارایی"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></td>
         <td>${esc(h.name)}</td>
-        <td><span class="badge badge-cat">${esc(h.category)}</span></td>
+        <td><span class="badge badge-cat">${esc(categoryName(h.categoryId))}</span></td>
         ${showPortfolioCol?`<td><span class="badge badge-cat">${esc(h.portfolioName)}</span></td>`:''}
         <td class="num">${fmt(h.qty,4)}</td>
         <td class="num">${fmt(h.avgCost)}</td>
         <td class="num">${fmt(h.costBasis)}</td>
         <td>
           <input class="num price-input" data-price-asset="${esc(h.name)}" type="text" inputmode="decimal" value="${h.price?fmt(h.price):''}" placeholder="وارد نشده" style="width:110px;" ${isAdmin()?'':'readonly'}>
-          ${PRICES_UPDATED_AT[h.name] ? `<div class="muted" style="font-size:10px; margin-top:2px;" title="تاریخی که این قیمت آخرین‌بار وارد/ویرایش شده">بروزرسانی: ${esc(PRICES_UPDATED_AT[h.name])}</div>` : ''}
+          ${PRICES_UPDATED_AT[h.name] ? `<div class="muted" style="font-size:11.5px; margin-top:2px;" title="تاریخی که این قیمت آخرین‌بار وارد/ویرایش شده">بروزرسانی: ${esc(PRICES_UPDATED_AT[h.name])}</div>` : ''}
         </td>
         <td class="num">${fmt(h.value)}${h.hasPrice?'':' <span class="muted" title="قیمت روز هنوز وارد نشده؛ فعلاً برابر مبلغ خرید در نظر گرفته شده">•</span>'}</td>
         <td class="num ${plClass(h.unrealized)}">${h.hasPrice? fmt(h.unrealized)+'<br><span class="muted">'+fmtPct(h.unrealizedPct)+'</span>' : '<span class="muted">قیمت روز وارد نشده</span>'}</td>
@@ -1739,7 +1917,7 @@ function renderHoldings(){
         <h3>پرتفوی</h3>
         <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
           ${portfolioFilterSelect('holdingsPortfolioFilter', holdingsFilterPid)}
-          <div style="display:flex;gap:6px;"><input type="text" id="holdingsAsOfDateInput" value="${holdingsAsOfDate?esc(holdingsAsOfDate):''}" placeholder="نما تا تاریخ (1404/06/01)" style="max-width:170px;" title="پرتفوی را همان‌طور که تا این تاریخ بوده نشان بده"><input type="date" id="holdingsAsOfDatePicker" class="date-picker-inline" title="انتخاب از تقویم"></div>
+          <input type="text" id="holdingsAsOfDateInput" value="${holdingsAsOfDate?esc(holdingsAsOfDate):''}" placeholder="نما تا تاریخ (1404/06/01)" style="max-width:170px;" title="پرتفوی را همان‌طور که تا این تاریخ بوده نشان بده">
           ${holdingsAsOfDate?`<button type="button" class="btn btn-xs" id="btnClearHoldingsAsOf">بازگشت به امروز</button>`:''}
           <button class="btn btn-gold btn-xs ${isAdmin()?'':'hidden'}" id="btnSaveSnapshot">ذخیره قیمت‌های روز و ثبت گزارش</button>
         </div>
@@ -1756,13 +1934,6 @@ function renderHoldings(){
   const holdingsFilterSel=document.getElementById('holdingsPortfolioFilter');
   if(holdingsFilterSel) holdingsFilterSel.addEventListener('change', ()=>{ holdingsFilterPid=holdingsFilterSel.value; renderHoldings(); });
   const holdingsAsOfInput=document.getElementById('holdingsAsOfDateInput');
-  const holdingsAsOfPicker=document.getElementById('holdingsAsOfDatePicker');
-  if(holdingsAsOfPicker) holdingsAsOfPicker.addEventListener('change', ()=>{
-    if(!holdingsAsOfPicker.value) return;
-    const [y,m,d]=holdingsAsOfPicker.value.split('-').map(Number);
-    holdingsAsOfInput.value=gregorianToJalali(y,m,d).map((v,i)=>String(v).padStart(i?2:4,'0')).join('/');
-    holdingsAsOfInput.dispatchEvent(new Event('change'));
-  });
   if(holdingsAsOfInput) holdingsAsOfInput.addEventListener('change', ()=>{
     const v=holdingsAsOfInput.value.trim();
     if(!v){ holdingsAsOfDate=null; renderHoldings(); return; }
@@ -1832,7 +2003,7 @@ function renderSold(){
     </tr></thead><tbody>
     ${closed.map(c=>`<tr>
       <td>${esc(c.asset)}</td>
-      <td><span class="badge badge-cat">${esc(c.category)}</span></td>
+      <td><span class="badge badge-cat">${esc(categoryName(c.categoryId))}</span></td>
       ${showPortfolioCol?`<td><span class="badge badge-cat">${esc(c.portfolioName)}</span></td>`:''}
       <td class="num ${plClass(c.profit)}">${fmt(c.profit)}</td>
       <td class="num">${c.firstBuy||'—'}</td>
@@ -1865,7 +2036,7 @@ function axisLabelChip(x,y,text,anchor){
   const charW=6.3, padX=4;
   const w = String(text).length*charW + padX*2;
   const rectX = anchor==='end' ? x-w : anchor==='middle' ? x-w/2 : x;
-  return `<g pointer-events="none"><rect x="${rectX}" y="${y-9.5}" width="${w}" height="13" rx="3" fill="var(--surface)"/><text x="${x}" y="${y+2.5}" font-size="10" fill="var(--ink-faint)" text-anchor="${anchor}">${text}</text></g>`;
+  return `<g pointer-events="none"><rect x="${rectX}" y="${y-9.5}" width="${w}" height="13" rx="3" fill="var(--surface)"/><text x="${x}" y="${y+2.5}" font-size="11.5" fill="var(--ink-faint)" text-anchor="${anchor}">${text}</text></g>`;
 }
 function roundedBarPath(x,yTop,w,h,r,roundAtTop){
   r=Math.max(0,Math.min(r,w/2,h));
@@ -2125,7 +2296,7 @@ function renderLadders(){
       if(!date){ toast('فرمت تاریخ درست نیست.',true); return; }
       if(amount<=0){ toast('مبلغ باید بزرگتر از صفر باشد.',true); return; }
       try{
-        const created = await apiSave(`/portfolios/${pid}/withdrawals`, {method:'POST', body:{category:cat, date, amount, dest, note, level}});
+        const created = await apiSave(`/portfolios/${pid}/withdrawals`, {method:'POST', body:{categoryId:cat, date, amount, dest, note, level}});
         WITHDRAWALS.push(created);
         toast('برداشت ثبت شد.');
         renderLadders();
@@ -2193,9 +2364,9 @@ function renderLadderPanel(pid, cat, a, levels, wd, wdTotal){
         ${actionHTML}
       </div>
       <div style="text-align:left;" title="در صورت رسیدن به آستانه ${lv.t}٪، پیشنهاد می‌شود ${lv.w}٪ از سود آن (یعنی مبلغ روبرو) برداشت/سیو شود و باقی سرمایه در بازار بماند.">
-        <div class="muted" style="font-size:10.5px;">برداشت پیشنهادی این پله</div>
+        <div class="muted" style="font-size:12px;">برداشت پیشنهادی این پله</div>
         <div class="num" style="font-weight:700;">${fmt(withdrawAmt)}</div>
-        <div class="muted" style="font-size:10.5px;margin-top:5px;">سرمایه باقی‌مانده پس از آن</div>
+        <div class="muted" style="font-size:12px;margin-top:5px;">سرمایه باقی‌مانده پس از آن</div>
         <div class="num">${fmt(remaining)}</div>
       </div>
     </div>`;
@@ -2210,7 +2381,7 @@ function renderLadderPanel(pid, cat, a, levels, wd, wdTotal){
     ${ladderRows}
     <div class="hr"></div>
     <details>
-      <summary style="cursor:pointer;color:var(--ink-dim);font-size:12.5px;">برداشت واقعی سود از این کتگوری (${wd.length} ثبت، جمع <span class="num">${fmt(wdTotal)}</span>)</summary>
+      <summary style="cursor:pointer;color:var(--ink-dim);font-size:14.5px;">برداشت واقعی سود از این کتگوری (${wd.length} ثبت، جمع <span class="num">${fmt(wdTotal)}</span>)</summary>
       ${isAdmin()?`<p class="small-note" style="margin-top:10px;">این فرم برای ثبت دستی برداشت‌هایی است که فروش واقعی در پی نداشته‌اند. اگر سود از فروش یک دارایی به دست آمده، بهتر است از دکمه «🔒 سیو سود این پله» در بالا استفاده کنید تا هم فروش ثبت شود و هم برداشت.</p>
       <form class="withdraw-form" data-pid="${esc(pid)}" data-cat="${esc(cat)}" style="margin-top:10px;">
         <div class="field-row">
@@ -2245,7 +2416,7 @@ function renderLaddersForPortfolio(p){
   const {holdings}=computeHoldingsForPortfolio(pid);
   const agg=categoryAgg(holdings);
   const levelsMap=ensurePortfolioLadders(pid);
-  const cats = Array.from(new Set([...Object.keys(agg), ...knownCategories()]));
+  const cats = Array.from(new Set([...Object.keys(agg), ...knownCategoryIds()]));
   cats.sort((a,b)=> (agg[b]?.value||0)-(agg[a]?.value||0));
 
   const header = `<div class="card-head" style="margin-top:22px;"><h2 style="margin:0;">${esc(p.name)}</h2></div>`;
@@ -2254,9 +2425,9 @@ function renderLaddersForPortfolio(p){
     const a = agg[cat] || {investment:0,value:0,profit:0,profitPct:0};
     if(!levelsMap[cat]) levelsMap[cat]=JSON.parse(JSON.stringify(DEFAULT_LADDERS['سایر']));
     const levels=levelsMap[cat];
-    const wd = WITHDRAWALS.filter(w=>w.portfolioId===pid && w.category===cat).sort((x,y)=>jalaliSortKey(y.date)-jalaliSortKey(x.date));
+    const wd = WITHDRAWALS.filter(w=>w.portfolioId===pid && w.categoryId===cat).sort((x,y)=>jalaliSortKey(y.date)-jalaliSortKey(x.date));
     const wdTotal = wd.reduce((s,w)=>s+w.amount,0);
-    const catHoldings = holdings.filter(h=>h.category===cat);
+    const catHoldings = holdings.filter(h=>h.categoryId===cat);
 
     const catKey = pid+'|'+cat;
     const isCatOpen = ladderOpenCats.has(catKey);
@@ -2296,7 +2467,7 @@ function renderLaddersForPortfolio(p){
       <div class="lad-cat-head" data-toggle-cat="${esc(catKey)}">
         <div class="lad-cat-head-left">
           <button type="button" class="expand-toggle ${isCatOpen?'open':''}" tabindex="-1"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <h3>${esc(cat)}</h3>
+          <h3>${esc(categoryName(cat))}</h3>
         </div>
         <div class="lad-cat-head-right">
           <span class="badge badge-cat">${catHoldings.length} دارایی</span>
@@ -2318,7 +2489,7 @@ function closeSecureProfitModal(){
 function openSecureProfitModal(pid, cat, idx){
   if(!requireAdmin('سیو سود')) return;
   const {holdings}=computeHoldingsForPortfolio(pid);
-  const catHoldings = holdings.filter(h=>h.category===cat && h.qty>1e-9);
+  const catHoldings = holdings.filter(h=>h.categoryId===cat && h.qty>1e-9);
   if(!catHoldings.length){ toast('دارایی بازی در این کتگوری برای فروش وجود ندارد.',true); return; }
   const levels = ensurePortfolioLadders(pid)[cat] || DEFAULT_LADDERS['سایر'];
   const lv = levels[idx];
@@ -2337,11 +2508,11 @@ function renderSecureProfitModal(pid, cat, idx, lv, suggestedAmt, catHoldings, s
   const cappedAmt = Math.min(suggestedAmt, asset.value); // can't suggest selling more than the position is worth
   const wasCapped = suggestedAmt > asset.value + 1;
   const qty = price>1e-9 ? Math.min(asset.qty, cappedAmt/price) : 0;
-  const defaultNote = `سیو سود — پله ${idx+1} (آستانه ${lv.t}٪) کتگوری ${cat}`;
+  const defaultNote = `سیو سود — پله ${idx+1} (آستانه ${lv.t}٪) کتگوری ${categoryName(cat)}`;
 
   document.getElementById('secureProfitModalBox').innerHTML = `
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-      <h3>🔒 سیو سود — سبد «${esc(portfolioName(pid))}» — ${esc(cat)} (پله ${idx+1}، آستانه ${lv.t}٪)</h3>
+      <h3>🔒 سیو سود — سبد «${esc(portfolioName(pid))}» — ${esc(categoryName(cat))} (پله ${idx+1}، آستانه ${lv.t}٪)</h3>
       <button type="button" class="modal-close" id="secureProfitClose">✕</button>
     </div>
     <p class="small-note">با تایید، یک فروش واقعی برای دارایی انتخابی ثبت می‌شود و این پله «سیو‌شده» علامت می‌خورد — دقیقاً مثل ثبت یک تراکنش فروش از تب «ثبت تراکنش». مقادیر زیر بر اساس قانون این پله از قبل پر شده‌اند؛ در صورت نیاز می‌توانید هرکدام را تغییر دهید.</p>
@@ -2359,6 +2530,15 @@ function renderSecureProfitModal(pid, cat, idx, lv, suggestedAmt, catHoldings, s
       <div class="field-row">
         <div class="field"><label>تعداد فروش</label><input type="text" inputmode="decimal" id="sp_qty" value="${qty?fmt(qty,4):''}" placeholder="0"></div>
         <div class="field"><label>مبلغ کل فروش (تومان)</label><input type="text" inputmode="decimal" id="sp_amount" value="${cappedAmt?fmt(cappedAmt):''}" placeholder="0"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>کارمزد (تومان، اختیاری)</label><input type="text" inputmode="decimal" id="sp_fee" placeholder="0"></div>
+        <div class="field"><label>حساب نقدی مقصد (اختیاری)</label>
+          <select id="sp_account">
+            <option value="">— بدون ثبت روی حساب نقدی —</option>
+            ${allAccounts().map(a=>`<option value="${esc(a.id)}">${esc(a.name)} (موجودی: ${fmt(a.balance)})</option>`).join('')}
+          </select>
+        </div>
       </div>
       <div class="field-row">
         <div class="field"><label>محل نگهداری / پلتفرم</label><input type="text" id="sp_location" list="locationList" value="${esc(asset.location||'')}" placeholder="مفید، کیف پول، ..."></div>
@@ -2387,6 +2567,8 @@ function renderSecureProfitModal(pid, cat, idx, lv, suggestedAmt, catHoldings, s
     const price = num(document.getElementById('sp_price').value);
     const qty = num(document.getElementById('sp_qty').value);
     const amount = num(document.getElementById('sp_amount').value);
+    const fee = Math.max(0, num(document.getElementById('sp_fee').value));
+    const accountId = document.getElementById('sp_account').value || null;
     const location = document.getElementById('sp_location').value.trim();
     const note = document.getElementById('sp_note').value.trim();
     const dest = document.getElementById('sp_dest').value.trim();
@@ -2395,15 +2577,17 @@ function renderSecureProfitModal(pid, cat, idx, lv, suggestedAmt, catHoldings, s
     const available = currentQtyForAsset(assetName, null, pid);
     if(qty > available + 1e-6){ toast(`تعداد فروش (${fmt(qty,4)}) از موجودی «${assetName}» (${fmt(available,4)}) بیشتر است.`,true); return; }
     if(amount<=0){ toast('مبلغ فروش باید بزرگ‌تر از صفر باشد.',true); return; }
+    if(fee>=amount){ toast('کارمزد نمی‌تواند برابر یا بیشتر از مبلغ فروش باشد.',true); return; }
 
     try{
       const r = await apiSave(`/portfolios/${pid}/secure-profit`, {method:'POST', body:{
-        category:cat, levelIdx:idx, asset:assetName, date, price, qty, amount, location, note, dest,
+        categoryId:cat, levelIdx:idx, asset:assetName, date, price, qty, amount, fee, accountId, location, note, dest,
       }});
       // The server wrote both rows atomically; mirror them into local state with the ids it returned
       // (sourceTxnId links the withdrawal back to the sell — see deleteTxn's un-secure logic).
-      TXNS.push({id:r.sellTransactionId, ts:Date.now(), type:'sell', date, asset:assetName, category:cat, qty, price, amount, location, note, portfolioId:pid});
-      WITHDRAWALS.push({id:r.withdrawalId, ts:Date.now(), portfolioId:pid, category:cat, date, amount, dest, note:`از فروش ${assetName}`, level:idx, sourceTxnId:r.sellTransactionId});
+      TXNS.push({id:r.sellTransactionId, ts:Date.now(), type:'sell', date, asset:assetName, categoryId:cat, accountId, qty, price, amount, fee, location, note, portfolioId:pid});
+      WITHDRAWALS.push({id:r.withdrawalId, ts:Date.now(), portfolioId:pid, categoryId:cat, date, amount:r.netProceeds, dest, note:`از فروش ${assetName}`, level:idx, sourceTxnId:r.sellTransactionId});
+      if(accountId) await refreshAccounts();
       closeSecureProfitModal();
       toast(r.message || 'فروش ثبت شد و سود این پله سیو شد.');
       renderAll();
@@ -2413,6 +2597,10 @@ function renderSecureProfitModal(pid, cat, idx, lv, suggestedAmt, catHoldings, s
 document.getElementById('secureProfitModal').addEventListener('click', e=>{
   if(e.target.id==='secureProfitModal') closeSecureProfitModal();
 });
+document.getElementById('alertsModal').addEventListener('click', e=>{
+  if(e.target.id==='alertsModal') closeAlertsModal();
+});
+document.getElementById('btnAlerts').addEventListener('click', openAlertsModal);
 
 /* ---------- Bulk import from Excel ----------
    Reads an .xlsx/.xls/.csv file client-side (via the SheetJS library loaded in <head>),
@@ -2544,7 +2732,8 @@ function processImportAOA(aoa){
     if(!date) errors.push('تاریخ نامعتبر یا خالی است');
     const asset=String(raw.asset==null?'':raw.asset).trim();
     if(!asset) errors.push('نام دارایی خالی است');
-    const category=String(raw.category==null?'':raw.category).trim() || 'سایر';
+    const categoryRaw=String(raw.category==null?'':raw.category).trim();
+    const categoryId = categoryRaw ? (categoryIdByName(categoryRaw) || categoryIdByName('سایر')) : categoryIdByName('سایر');
     const location=String(raw.location==null?'':raw.location).trim();
     const note=String(raw.note==null?'':raw.note).trim();
     let qty=num(raw.qty), price=num(raw.price), amount=num(raw.amount);
@@ -2557,7 +2746,7 @@ function processImportAOA(aoa){
       if(qty<=0) errors.push('تعداد باید بزرگ‌تر از صفر باشد');
       if(amount<=0) errors.push('مبلغ کل نامعتبر است (تعداد و قیمت واحد را هم کامل وارد کنید)');
     }
-    const txn = (errors.length===0 && date && type) ? {type,date,asset,category,qty,price,amount,location,note} : null;
+    const txn = (errors.length===0 && date && type) ? {type,date,asset,categoryId,qty,price,amount,location,note} : null;
     return {rowNum, raw, errors, txn};
   });
 
@@ -2615,7 +2804,7 @@ function renderImportPreview(parsed){
       <td class="num">${t?esc(t.date):esc(String(r.raw.date||'—'))}</td>
       <td>${typeLabel}</td>
       <td>${esc(t?t.asset:String(r.raw.asset||'—'))}</td>
-      <td>${esc(t?t.category:String(r.raw.category||'—'))}</td>
+      <td>${esc(t?categoryName(t.categoryId):String(r.raw.category||'—'))}</td>
       <td class="num">${t && t.type!=='dividend' ? fmt(t.qty,4) : '—'}</td>
       <td class="num">${t && t.type!=='dividend' ? fmt(t.price) : '—'}</td>
       <td class="num">${t? fmt(t.amount) : '—'}</td>
@@ -2647,7 +2836,7 @@ async function confirmImportRows(validRows){
   for(const r of validRows){
     try{
       const created = await apiFetch(`/portfolios/${pid}/transactions`, {method:'POST', body:r.txn});
-      TXNS.push({id:created.id, ts:created.ts, type:created.type, date:created.date, asset:created.asset, category:created.category, qty:created.qty, price:created.price, amount:created.amount, location:created.location, note:created.note, portfolioId:created.portfolioId});
+      TXNS.push({id:created.id, ts:created.ts, type:created.type, date:created.date, asset:created.asset, categoryId:created.categoryId, accountId:created.accountId, qty:created.qty, price:created.price, amount:created.amount, fee:created.fee, location:created.location, note:created.note, portfolioId:created.portfolioId});
       okCount++;
     }catch(err){ if(!firstError) firstError=err.message; }
   }
@@ -2668,7 +2857,7 @@ function renderUsers(){
     const isSelf = CURRENT_USER && u.id===CURRENT_USER.id;
     const permNote = u.role==='admin' ? '' : (()=>{
       const allowed=userAllowedTabs(u);
-      return ` <span class="muted" style="font-size:11px;" title="${allowed.map(tk=>esc(TAB_LABELS[tk])).join('، ')}">(${allowed.length} از ${TAB_KEYS_PERMISSIBLE.length} تب)</span>`;
+      return ` <span class="muted" style="font-size:12.5px;" title="${allowed.map(tk=>esc(TAB_LABELS[tk])).join('، ')}">(${allowed.length} از ${TAB_KEYS_PERMISSIBLE.length} تب)</span>`;
     })();
     return `<tr>
       <td>${esc(u.displayName)}${isSelf?' <span class="badge badge-cat">شما</span>':''}</td>
@@ -2686,7 +2875,7 @@ function renderUsers(){
   const editingRole = editing? editing.role : 'admin';
   const editingAllowed = editing? userAllowedTabs(editing) : TAB_KEYS_PERMISSIBLE.slice();
   const permsCheckboxes = TAB_KEYS_PERMISSIBLE.map(tk=>`
-    <label style="display:flex; align-items:center; gap:6px; font-size:13px; font-weight:400;">
+    <label style="display:flex; align-items:center; gap:6px; font-size:15px; font-weight:400;">
       <input type="checkbox" class="u-tab-perm" value="${tk}" ${editingAllowed.includes(tk)?'checked':''}> ${esc(TAB_LABELS[tk])}
     </label>`).join('');
 
@@ -2699,7 +2888,7 @@ function renderUsers(){
           <div class="field"><label>نام کاربری</label><input id="u_username" type="text" value="${editing?esc(editing.username):''}" ${editing?'':''}></div>
         </div>
         <div class="field-row">
-          <div class="field"><label>${editing?'رمز عبور جدید (خالی = بدون تغییر)':'رمز عبور'}</label><input id="u_pass" type="password" placeholder="${editing?'برای تغییر ندادن خالی بگذارید':'حداقل ۴ کاراکتر'}"></div>
+          ${passwordFieldHTML('u_pass', editing?'رمز عبور جدید (خالی = بدون تغییر)':'رمز عبور', editing?'برای تغییر ندادن خالی بگذارید':'حداقل ۴ کاراکتر')}
           <div class="field"><label>نقش</label>
             <select id="u_role">
               <option value="admin" ${editingRole==='admin'?'selected':''}>مدیر (دسترسی کامل)</option>
@@ -2728,6 +2917,7 @@ function renderUsers(){
   roleSel.addEventListener('change', ()=>{
     permsWrap.style.display = roleSel.value==='admin' ? 'none' : '';
   });
+  wirePasswordToggle('u_pass');
   document.getElementById('userForm').addEventListener('submit', async e=>{
     e.preventDefault();
     const name=document.getElementById('u_name').value.trim();
@@ -2862,9 +3052,356 @@ async function deletePortfolio(id){
 // page, with that portfolio's own value/profit summary shown at the top.
 function openPortfolio(pid){
   addTabPortfolioId=pid;
-  renderAddTab();
-  switchTab('add');
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab==='add'));
+  manageView='add';
+  switchTab('manage');
+}
+
+/* ---------- Management hub tab («مدیریت») — combines Add-transaction, Categories, Accounts,
+   and Users into one place, since they're all "configure how the ledger works" actions rather
+   than day-to-day reporting. A regular user only ever sees "ثبت تراکنش" here (if granted that
+   permission) — categories/accounts/users remain admin-only, enforced again server-side. ---------- */
+function availableManageViews(){
+  if(isAdmin()) return ['add','categories','accounts','users'];
+  return isTabAllowedForCurrentUser('add') ? ['add'] : [];
+}
+const MANAGE_VIEW_META={
+  add:        {label:'ثبت تراکنش',  icon:'➕', desc:'ثبت خرید، فروش یا سود نقدی برای هر سبد'},
+  categories: {label:'کتگوری‌ها',    icon:'🏷️', desc:'ساخت، تغییر نام یا حذف کتگوری‌ها'},
+  accounts:   {label:'حساب‌ها',      icon:'💰', desc:'حساب‌های نقدی، واریز/برداشت/انتقال بین آن‌ها'},
+  users:      {label:'کاربران',      icon:'👤', desc:'مدیریت کاربران و سطح دسترسی هرکدام'},
+};
+function renderManageTab(){
+  const wrap=document.getElementById('tab-manage');
+  if(!wrap || wrap.classList.contains('hidden')) return; // don't waste work rendering a tab nobody's looking at
+  const available=availableManageViews();
+  if(!available.length){ document.getElementById('manageHub').innerHTML=''; return; }
+  if(!manageView || !available.includes(manageView)) manageView = available[0];
+
+  const hubEl=document.getElementById('manageHub');
+  if(available.length>1){
+    hubEl.innerHTML = `<div class="manage-hub-cards" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+      ${available.map(v=>{
+        const m=MANAGE_VIEW_META[v];
+        return `<button type="button" class="card manage-hub-card ${manageView===v?'active':''}" data-manage-view="${v}"
+          style="flex:1; min-width:150px; text-align:center; cursor:pointer; border:1px solid ${manageView===v?'var(--gold)':'var(--border)'}; padding:16px 10px;">
+          <div style="font-size:25px;">${m.icon}</div>
+          <div style="font-weight:700; margin-top:6px; font-size:15px;">${m.label}</div>
+          <div class="muted" style="font-size:12.5px; margin-top:4px;">${m.desc}</div>
+        </button>`;
+      }).join('')}
+    </div>`;
+    hubEl.querySelectorAll('[data-manage-view]').forEach(btn=>{
+      btn.addEventListener('click', ()=>switchManageView(btn.dataset.manageView));
+    });
+  } else {
+    hubEl.innerHTML=''; // only one thing this user can do here — skip the hub chrome entirely
+  }
+
+  ['add','categories','accounts','users'].forEach(v=>{
+    document.getElementById('tab-'+v).classList.toggle('hidden', v!==manageView);
+  });
+  if(manageView==='add') renderAddTab();
+  else if(manageView==='categories') renderCategories();
+  else if(manageView==='accounts') renderAccounts();
+  else if(manageView==='users') renderUsers();
+}
+function switchManageView(view){
+  manageView=view;
+  renderManageTab();
+}
+
+/* ---------- Categories tab (admin only) — create / rename / delete, applies everywhere instantly ---------- */
+function renderCategories(){
+  const wrap=document.getElementById('tab-categories');
+  if(!isAdmin()){ wrap.innerHTML=''; return; }
+  const rows = CATEGORIES.map(c=>{
+    const cnt = TXNS.filter(t=>t.categoryId===c.id).length;
+    return `<tr>
+      <td>${esc(c.name)}${c.isDefault?' <span class="badge badge-cat">پیش‌فرض</span>':''}</td>
+      <td class="num">${cnt}</td>
+      <td class="num">${esc(c.createdAt||'—')}</td>
+      <td><div class="row-actions">
+        <button class="btn btn-xs" data-edit-category="${c.id}">ویرایش نام</button>
+        <button class="btn btn-xs btn-danger" data-del-category="${c.id}">حذف</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+
+  const editing = editingCategoryId? CATEGORIES.find(c=>c.id===editingCategoryId) : null;
+
+  wrap.innerHTML = `
+    <div class="card" style="max-width:480px;">
+      <div class="card-head"><h3>${editing?'ویرایش نام کتگوری':'افزودن کتگوری جدید'}</h3><button class="btn btn-xs ${editing?'':'hidden'}" id="btnCancelEditCategory">لغو ویرایش</button></div>
+      <form id="categoryForm">
+        <div class="field"><label>نام کتگوری</label><input id="cat_name" type="text" value="${editing?esc(editing.name):''}" placeholder="مثلاً: صندوق طلا، NFT، ..."></div>
+        <button class="btn btn-gold btn-block" type="submit">${editing?'ذخیره تغییرات':'افزودن کتگوری'}</button>
+      </form>
+      <p class="small-note" style="margin-top:12px;">تغییر نام یک کتگوری همه‌جا (تراکنش‌ها، پله‌های سود، برداشت‌ها) بلافاصله اعمال می‌شود — فقط اسمش عوض می‌شود، نه هیچ داده‌ای. کتگوری‌ای که در تراکنش/برداشتی استفاده شده باشد قابل حذف نیست.</p>
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <div class="card-head"><h3>کتگوری‌ها (${CATEGORIES.length})</h3></div>
+      <div class="table-wrap"><table><thead><tr><th>نام</th><th>تعداد تراکنش</th><th>تاریخ ایجاد</th><th>عملیات</th></tr></thead><tbody>${rows}</tbody></table></div>
+    </div>
+  `;
+
+  document.getElementById('btnCancelEditCategory').addEventListener('click', ()=>{ editingCategoryId=null; renderCategories(); });
+  document.getElementById('categoryForm').addEventListener('submit', async e=>{
+    e.preventDefault();
+    const name=document.getElementById('cat_name').value.trim();
+    if(!name){ toast('نام کتگوری را وارد کنید.',true); return; }
+    try{
+      if(editingCategoryId){
+        const updated = await apiSave(`/categories/${editingCategoryId}`, {method:'PUT', body:{name}});
+        const c=CATEGORIES.find(x=>x.id===editingCategoryId);
+        c.name=updated.name;
+        editingCategoryId=null;
+        toast('نام کتگوری ویرایش شد.');
+      } else {
+        const created = await apiSave('/categories', {method:'POST', body:{name}});
+        CATEGORIES.push(created);
+        toast('کتگوری جدید اضافه شد.');
+      }
+      renderAll(); // category name shows up in the add-transaction select, ladders tab, etc.
+    }catch(err){ toast(err.message, true); }
+  });
+}
+function startEditCategory(id){ editingCategoryId=id; renderCategories(); }
+async function deleteCategory(id){
+  const c=CATEGORIES.find(x=>x.id===id); if(!c) return;
+  if(CATEGORIES.length<=1){ toast('حداقل یک کتگوری باید باقی بماند.',true); return; }
+  const cnt=TXNS.filter(t=>t.categoryId===id).length;
+  if(cnt>0){ toast(`این کتگوری در ${cnt} تراکنش استفاده شده و قابل حذف نیست.`,true); return; }
+  if(!confirm(`کتگوری «${c.name}» حذف شود؟`)) return;
+  try{
+    await apiSave(`/categories/${id}`, {method:'DELETE'});
+    CATEGORIES=CATEGORIES.filter(x=>x.id!==id);
+    renderAll();
+    toast('کتگوری حذف شد.');
+  }catch(err){ toast(err.message, true); }
+}
+
+/* ---------- Accounts tab (admin only) — cash accounts per portfolio, à la Microsoft Money ---------- */
+function renderAccounts(){
+  const wrap=document.getElementById('tab-accounts');
+  if(!isAdmin()){ wrap.innerHTML=''; return; }
+  const accounts=allAccounts();
+  const editing = editingAccountId? accounts.find(a=>a.id===editingAccountId) : null;
+
+  // Each account row is clickable (accordion) to reveal deposit/withdraw forms + its full
+  // history (manual deposits/withdrawals/transfers, plus any buy/sell/dividend that was paid
+  // through it) — this is the part that was completely missing before.
+  const rows = accounts.map(a=>{
+    const isOpen = expandedAccountId===a.id;
+    return `<div class="lad-cat">
+      <div class="lad-cat-head" data-toggle-account="${a.id}">
+        <div class="lad-cat-head-left">
+          <button type="button" class="expand-toggle ${isOpen?'open':''}" tabindex="-1"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <h3>${esc(a.name)}</h3>
+        </div>
+        <div class="lad-cat-head-right">
+          <span class="muted" style="font-size:12.5px;">موجودی اولیه: <span class="num">${fmt(a.openingBalance)}</span></span>
+          <span class="num ${plClass(a.balance)}" style="font-weight:700;">${fmt(a.balance)}</span>
+          <button type="button" class="btn btn-xs" data-edit-account="${a.id}">ویرایش</button>
+          <button type="button" class="btn btn-xs btn-danger" data-del-account="${a.id}">حذف</button>
+        </div>
+      </div>
+      ${isOpen? `<div class="lad-cat-body" id="accountDetail-${a.id}"><div class="empty" style="padding:10px 2px;">در حال بارگذاری...</div></div>` : ''}
+    </div>`;
+  }).join('');
+
+  const transferOptions = accounts.map(a=>`<option value="${a.id}">${esc(a.name)} (موجودی: ${fmt(a.balance)})</option>`).join('');
+
+  wrap.innerHTML = `
+    <div class="card-head" style="margin-bottom:10px;">
+      <h2 style="margin:0;">حساب‌های نقدی</h2>
+    </div>
+    <p class="small-note" style="margin-bottom:14px;">حساب‌های نقدی مشترک بین همه‌ی سبدها هستند — دقیقاً مثل یک حساب بانکی واقعی که به یک سبد خاص تعلق ندارد. وقتی از تب «ثبت تراکنش» دارایی‌ای می‌خرید یا می‌فروشید و یک حساب را انتخاب می‌کنید، موجودی همین‌جا خودکار به‌روز می‌شود.</p>
+    <div class="card" style="max-width:480px;">
+      <div class="card-head"><h3>${editing?'ویرایش حساب':'افزودن حساب نقدی جدید'}</h3><button class="btn btn-xs ${editing?'':'hidden'}" id="btnCancelEditAccount">لغو ویرایش</button></div>
+      <form id="accountForm">
+        <div class="field"><label>نام حساب</label><input id="acc_name" type="text" value="${editing?esc(editing.name):''}" placeholder="مثلاً: نقد تومانی، حساب بانک ملی، ..."></div>
+        <div class="field"><label>موجودی اولیه (تومان)</label><input id="acc_opening" type="text" inputmode="decimal" value="${editing?fmt(editing.openingBalance):''}" placeholder="0"></div>
+        <button class="btn btn-gold btn-block" type="submit">${editing?'ذخیره تغییرات':'افزودن حساب'}</button>
+      </form>
+      <p class="small-note" style="margin-top:12px;">موجودی هر حساب خودکار محاسبه می‌شود: موجودی اولیه + هر واریز/برداشت + هر خرید/فروش/سود نقدی (از هر سبدی) که برای این حساب ثبت شده. حسابی که سابقه دارد قابل حذف نیست. برای ثبت واریز/برداشت یا دیدن تاریخچه، روی نام حساب در جدول پایین بزنید.</p>
+    </div>
+
+    ${accounts.length>1?`
+    <div class="card" style="margin-top:14px; max-width:560px;">
+      <div class="card-head"><h3>انتقال بین حساب‌ها</h3></div>
+      <form id="transferForm">
+        <div class="field-row">
+          <div class="field"><label>از حساب</label><select id="tr_from">${transferOptions}</select></div>
+          <div class="field"><label>به حساب</label><select id="tr_to">${transferOptions}</select></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>تاریخ</label><input id="tr_date" type="text" value="${todayJalali()}"></div>
+          <div class="field"><label>مبلغ (تومان)</label><input id="tr_amount" type="text" inputmode="decimal" placeholder="0"></div>
+        </div>
+        <div class="field"><label>توضیحات (اختیاری)</label><input id="tr_note" type="text"></div>
+        <button class="btn btn-gold btn-block" type="submit">ثبت انتقال</button>
+      </form>
+    </div>` : ''}
+
+    <div class="card" style="margin-top:14px;">
+      <div class="card-head"><h3>حساب‌ها (${accounts.length})</h3></div>
+      ${accounts.length? rows : `<div class="empty">هنوز حساب نقدی‌ای تعریف نشده.</div>`}
+    </div>
+  `;
+
+  document.getElementById('btnCancelEditAccount').addEventListener('click', ()=>{ editingAccountId=null; renderAccounts(); });
+  document.getElementById('accountForm').addEventListener('submit', async e=>{
+    e.preventDefault();
+    const name=document.getElementById('acc_name').value.trim();
+    const openingBalance=num(document.getElementById('acc_opening').value);
+    if(!name){ toast('نام حساب را وارد کنید.',true); return; }
+    try{
+      if(editingAccountId){
+        await apiSave(`/accounts/${editingAccountId}`, {method:'PUT', body:{name, openingBalance}});
+        editingAccountId=null;
+        toast('حساب ویرایش شد.');
+      } else {
+        await apiSave('/accounts', {method:'POST', body:{name, openingBalance}});
+        toast('حساب جدید اضافه شد.');
+      }
+      await refreshAccounts();
+      renderAccounts();
+      renderAddTab(); // the account select in the transaction form needs the new list too
+    }catch(err){ toast(err.message, true); }
+  });
+
+  const transferForm=document.getElementById('transferForm');
+  if(transferForm) transferForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const fromAccountId=document.getElementById('tr_from').value;
+    const toAccountId=document.getElementById('tr_to').value;
+    const date=normalizeJalali(document.getElementById('tr_date').value);
+    const amount=num(document.getElementById('tr_amount').value);
+    const note=document.getElementById('tr_note').value.trim();
+    if(fromAccountId===toAccountId){ toast('حساب مبدا و مقصد باید متفاوت باشند.',true); return; }
+    if(!date){ toast('فرمت تاریخ درست نیست.',true); return; }
+    if(amount<=0){ toast('مبلغ باید بزرگتر از صفر باشد.',true); return; }
+    try{
+      await apiSave('/accounts/transfer', {method:'POST', body:{fromAccountId, toAccountId, date, amount, note}});
+      delete ACCOUNT_MOVEMENTS_CACHE[fromAccountId];
+      delete ACCOUNT_MOVEMENTS_CACHE[toAccountId];
+      await refreshAccounts();
+      renderAccounts();
+      toast('انتقال ثبت شد.');
+    }catch(err){ toast(err.message, true); }
+  });
+
+  document.querySelectorAll('[data-toggle-account]').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      if(e.target.closest('[data-edit-account],[data-del-account]')) return; // let those buttons' own handlers run instead
+      const id=el.dataset.toggleAccount;
+      expandedAccountId = expandedAccountId===id ? null : id;
+      renderAccounts();
+      if(expandedAccountId) loadAccountDetail(expandedAccountId);
+    });
+  });
+  if(expandedAccountId) loadAccountDetail(expandedAccountId);
+}
+// Merges this account's manual deposit/withdraw/transfer rows with every buy/sell/dividend
+// transaction that was paid through it into one chronological ledger — fetches the manual
+// movements lazily (only when a row is actually expanded) and caches them so re-rendering
+// the tab (e.g. after an unrelated edit) doesn't refetch every time.
+async function loadAccountDetail(accountId){
+  if(!ACCOUNT_MOVEMENTS_CACHE[accountId]){
+    ACCOUNT_MOVEMENTS_CACHE[accountId] = await safeLoad(()=>apiFetch(`/accounts/${accountId}/movements`), []);
+  }
+  renderAccountDetail(accountId);
+}
+function renderAccountDetail(accountId){
+  const el=document.getElementById(`accountDetail-${accountId}`);
+  if(!el) return; // row got collapsed again before the fetch resolved
+  const account=allAccounts().find(a=>a.id===accountId);
+  if(!account) return;
+  const movements = ACCOUNT_MOVEMENTS_CACHE[accountId] || [];
+  const linkedTxns = TXNS.filter(t=>t.accountId===accountId);
+  const showPortfolioTag = PORTFOLIOS.length>1;
+
+  const ledger = [
+    ...movements.map(m=>({date:m.date, ts:m.ts, kind:'movement', typeLabel:movementTypeLabel(m.type), signed:movementCashImpact(m), note:m.note||'—'})),
+    ...linkedTxns.map(t=>({date:t.date, ts:t.ts, kind:'txn', typeLabel:`${typeBadgeText(t.type)} — ${t.asset}${showPortfolioTag?' ('+portfolioName(t.portfolioId)+')':''}`, signed:txnCashImpact(t), note:t.note||'—'})),
+  ].sort((a,b)=> jalaliSortKey(b.date)-jalaliSortKey(a.date) || (b.ts-a.ts));
+
+  const historyRows = ledger.map(x=>`<tr>
+    <td class="num">${x.date}</td>
+    <td>${esc(x.typeLabel)}</td>
+    <td class="num ${plClass(x.signed)}">${x.signed>=0?'+':''}${fmt(x.signed)}</td>
+    <td>${esc(x.note)}</td>
+  </tr>`).join('');
+
+  el.innerHTML = `
+    <div class="field-row">
+      <form id="depositForm-${accountId}" style="flex:1;">
+        <div class="field"><label>واریز — تاریخ</label><input type="text" class="dep-date" value="${todayJalali()}"></div>
+        <div class="field"><label>مبلغ (تومان)</label><input type="text" inputmode="decimal" class="dep-amount" placeholder="0"></div>
+        <div class="field"><label>توضیحات (اختیاری)</label><input type="text" class="dep-note"></div>
+        <button class="btn btn-xs" type="submit" style="width:100%;">ثبت واریز</button>
+      </form>
+      <form id="withdrawForm-${accountId}" style="flex:1;">
+        <div class="field"><label>برداشت — تاریخ</label><input type="text" class="wd-date" value="${todayJalali()}"></div>
+        <div class="field"><label>مبلغ (تومان)</label><input type="text" inputmode="decimal" class="wd-amount" placeholder="0"></div>
+        <div class="field"><label>توضیحات (اختیاری)</label><input type="text" class="wd-note"></div>
+        <button class="btn btn-xs btn-secure" type="submit" style="width:100%;">ثبت برداشت</button>
+      </form>
+    </div>
+    <div class="hr"></div>
+    <div class="muted" style="font-size:14px;margin-bottom:6px;">تاریخچه عملیات این حساب (${ledger.length} مورد)</div>
+    ${ledger.length? `<div class="table-wrap"><table><thead><tr><th>تاریخ</th><th>نوع</th><th>مبلغ</th><th>توضیحات</th></tr></thead><tbody>${historyRows}</tbody></table></div>`
+      : `<div class="empty" style="padding:10px 2px;">هنوز هیچ واریز، برداشت یا تراکنشی برای این حساب ثبت نشده.</div>`}
+  `;
+
+  document.getElementById(`depositForm-${accountId}`).addEventListener('submit', async e=>{
+    e.preventDefault();
+    const form=e.target;
+    const date=normalizeJalali(form.querySelector('.dep-date').value);
+    const amount=num(form.querySelector('.dep-amount').value);
+    const note=form.querySelector('.dep-note').value.trim();
+    if(!date){ toast('فرمت تاریخ درست نیست.',true); return; }
+    if(amount<=0){ toast('مبلغ باید بزرگتر از صفر باشد.',true); return; }
+    try{
+      await apiSave(`/accounts/${accountId}/deposit`, {method:'POST', body:{date, amount, note}});
+      delete ACCOUNT_MOVEMENTS_CACHE[accountId];
+      await refreshAccounts();
+      renderAccounts();
+      await loadAccountDetail(accountId);
+      toast('واریز ثبت شد.');
+    }catch(err){ toast(err.message, true); }
+  });
+  document.getElementById(`withdrawForm-${accountId}`).addEventListener('submit', async e=>{
+    e.preventDefault();
+    const form=e.target;
+    const date=normalizeJalali(form.querySelector('.wd-date').value);
+    const amount=num(form.querySelector('.wd-amount').value);
+    const note=form.querySelector('.wd-note').value.trim();
+    if(!date){ toast('فرمت تاریخ درست نیست.',true); return; }
+    if(amount<=0){ toast('مبلغ باید بزرگتر از صفر باشد.',true); return; }
+    try{
+      await apiSave(`/accounts/${accountId}/withdraw`, {method:'POST', body:{date, amount, note}});
+      delete ACCOUNT_MOVEMENTS_CACHE[accountId];
+      await refreshAccounts();
+      renderAccounts();
+      await loadAccountDetail(accountId);
+      toast('برداشت ثبت شد.');
+    }catch(err){ toast(err.message, true); }
+  });
+}
+function startEditAccount(id){ editingAccountId=id; renderAccounts(); }
+async function deleteAccount(id){
+  const acc=allAccounts().find(a=>a.id===id); if(!acc) return;
+  if(!confirm(`حساب «${acc.name}» حذف شود؟`)) return;
+  try{
+    await apiSave(`/accounts/${id}`, {method:'DELETE'});
+    delete ACCOUNT_MOVEMENTS_CACHE[id];
+    if(expandedAccountId===id) expandedAccountId=null;
+    await refreshAccounts();
+    renderAccounts();
+    renderAddTab();
+    toast('حساب حذف شد.');
+  }catch(err){ toast(err.message, true); }
 }
 
 /* ---------- restore ----------
@@ -2882,17 +3419,23 @@ function doRestore(_file){
 function switchTab(name){
   // Enforced here (not just by hiding the nav button) so a data-goto link or any other
   // programmatic jump can't bypass a tab a "کاربر عادی" was explicitly denied.
-  if(TAB_KEYS_PERMISSIBLE.includes(name) && !isTabAllowedForCurrentUser(name)){
+  if(name==='manage'){
+    if(!isAdmin() && !isTabAllowedForCurrentUser('add')){
+      toast('دسترسی شما به این بخش محدود شده است.', true);
+      return;
+    }
+  } else if(TAB_KEYS_PERMISSIBLE.includes(name) && !isTabAllowedForCurrentUser(name)){
     toast('دسترسی شما به این بخش محدود شده است.', true);
     return;
   }
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
-  ['dashboard','add','holdings','sold','trend','ladders','users','portfolios'].forEach(n=>{
+  ['dashboard','manage','holdings','sold','trend','ladders','portfolios'].forEach(n=>{
     document.getElementById('tab-'+n).classList.toggle('hidden', n!==name);
   });
+  if(name==='manage') renderManageTab();
 }
 function renderAll(){
-  renderKPI(); renderDashboard(); renderAddTab(); renderHoldings(); renderSold(); renderTrend(); renderLadders(); renderUsers(); renderPortfolios();
+  renderKPI(); renderDashboard(); renderManageTab(); renderHoldings(); renderSold(); renderTrend(); renderLadders(); renderPortfolios();
   updateUserBar();
 }
 
@@ -2901,8 +3444,6 @@ document.getElementById('tabs').addEventListener('click', e=>{
   switchTab(b.dataset.tab);
 });
 document.addEventListener('click', e=>{
-  const alertCard=e.target.closest('.alert-card');
-  if(alertCard && !e.target.closest('button')){ alertCard.classList.toggle('alert-expanded'); return; }
   const goto=e.target.closest('[data-goto]');
   if(goto){
     switchTab(goto.dataset.goto); document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===goto.dataset.goto)); return;
@@ -2925,6 +3466,10 @@ document.addEventListener('click', e=>{
   const editPortBtn=e.target.closest('[data-edit-portfolio]'); if(editPortBtn){ if(!requireAdmin('مدیریت سبدها')) return; startEditPortfolio(editPortBtn.dataset.editPortfolio); return; }
   const delPortBtn=e.target.closest('[data-del-portfolio]'); if(delPortBtn){ if(!requireAdmin('حذف سبد')) return; deletePortfolio(delPortBtn.dataset.delPortfolio); return; }
   const openPortBtn=e.target.closest('[data-open-portfolio]'); if(openPortBtn){ openPortfolio(openPortBtn.dataset.openPortfolio); return; }
+  const editCatBtn=e.target.closest('[data-edit-category]'); if(editCatBtn){ if(!requireAdmin('مدیریت کتگوری‌ها')) return; startEditCategory(editCatBtn.dataset.editCategory); return; }
+  const delCatBtn=e.target.closest('[data-del-category]'); if(delCatBtn){ if(!requireAdmin('حذف کتگوری')) return; deleteCategory(delCatBtn.dataset.delCategory); return; }
+  const editAccBtn=e.target.closest('[data-edit-account]'); if(editAccBtn){ if(!requireAdmin('مدیریت حساب‌ها')) return; startEditAccount(editAccBtn.dataset.editAccount); return; }
+  const delAccBtn=e.target.closest('[data-del-account]'); if(delAccBtn){ if(!requireAdmin('حذف حساب')) return; deleteAccount(delAccBtn.dataset.delAccount); return; }
 });
 document.getElementById('ledgerRoot').addEventListener('input', e=>{
   if(e.target.id==='txnSearch'){ renderTxnLog(e.target.value); }
